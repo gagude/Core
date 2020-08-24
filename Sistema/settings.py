@@ -25,7 +25,7 @@ SECRET_KEY = 'g_9sp6!wzm)y8ftis7p3_=-8!cvl4h+e5h3@ywl04#ms=4t3m*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['gagude.pythonanywhere.com']
+ALLOWED_HOSTS = ['gagude.pythonanywhere.com','192.168.0.102']
 
 
 # Application definition
