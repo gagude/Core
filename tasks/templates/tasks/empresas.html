@@ -1,0 +1,31 @@
+{% extends "tasks/layout.html" %}
+{% block content %}
+<section class="content">
+<div class="container-fluid">
+    <div class="card">
+    <div class="card-body">
+        <div class="tab-content p-0">
+            <table style="width:100%" class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>NOME </th>  
+                    <th>CNPJ</th>
+                    <th>PACOTE</th>
+                    <th>VALOR</th>
+                </tr>
+                    {% for sub_items in my_list %}
+                    <tr>
+                        <td><a href="{% url 'index' %}">{{sub_items.name}}</a></td>
+                        <td>{{sub_items.cnpj}}</td>
+                        <td>{{sub_items.contract_pack}}</td>
+                        <td>{{sub_items.contract_value}}</td>
+                    </tr>
+                    {% endfor %}
+            </thead>
+            </table>
+                        
+        </div><!-- /.card-body -->
+    </div>
+</div>
+</div>
+{% endblock content %}
