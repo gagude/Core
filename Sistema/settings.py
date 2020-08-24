@@ -25,7 +25,7 @@ SECRET_KEY = 'g_9sp6!wzm)y8ftis7p3_=-8!cvl4h+e5h3@ywl04#ms=4t3m*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.102','192.168.0.101']
+ALLOWED_HOSTS = ['gagude.pythonanywhere.com']
 
 
 # Application definition
@@ -119,3 +119,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_URL = '/static/'
+
+STATIC_ROOT = 'home/gagude/Core/static'
