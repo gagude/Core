@@ -54,7 +54,7 @@ def ini_sup(request):
 def relatorio_empresas(request):
     form = EmpresasForm(request.POST or None)
     if request.POST:
-        form.save()
+        request
     contUm['page'] = 'DashBoard-1'
     contUm['list_size'] = len(my_list)
     contUm['form'] = form
