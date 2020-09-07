@@ -1,9 +1,13 @@
 from django import forms
 from .models import Empresas
+from .models import Tickets
 
 class EmpresasForm(forms.ModelForm):
     class Meta:
+        
+
         model = Empresas
+        
         fields = [
             'name' ,
             'contract_pack' ,
@@ -12,7 +16,24 @@ class EmpresasForm(forms.ModelForm):
             'owner' ,
             'start_data',
             'end_contract',
-            'service_level',
             'excedent',
-            'it_respon',
+            'service_level',
+            'it_respon'
         ]
+        
+class TicketsForm(forms.ModelForm):
+    class Meta:
+        model = Tickets
+        fields = [
+            'tipo',
+            'assunto',
+            'data_abertura',
+            'cliente',
+            'responsavel',
+            'status',
+            'service',
+            'descri',
+        ]
+
+
+    

@@ -1,4 +1,4 @@
-{% extends "tasks/layout.html" %}
+{% extends "tasks/layouts/layout.html" %}
 {% block content %}
 <section class="content">
 <div class="container-fluid">
@@ -18,7 +18,7 @@
                         <td><a href="{% url 'index' %}">{{sub_items.name}}</a></td>
                         <td>{{sub_items.cnpj}}</td>
                         <td>{{sub_items.contract_pack}}</td>
-                        <td>{{sub_items.contract_value}}</td>
+                        <td>R$ {{sub_items.contract_value}},00</td>
                     </tr>
                     {% endfor %}
             </thead>

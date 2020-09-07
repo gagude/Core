@@ -1,8 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import EmpresasForm
+from .forms import TicketsForm
 from .models import Empresas
+from .models import Tickets
 from .calculations import Calculations
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 # Create your views here.
 tasks = {"foo", "Bar", "baz"}
 
@@ -11,21 +16,34 @@ my_list = []
 #contUm =  Empresas.objects.get(id=8)
 
 
-def index(request, *args, **kwargs):
-    my_list = []
-    for i in range(Empresas.objects.count()):
-        my_list.append(Empresas.objects.get(id=i+1))
-        contUm['my_list'] = my_list
-    contUm['page'] = 'DashBoard-1'
-    contUm['list_size'] = len(my_list)
-    return render(request, "tasks/index.html",contUm)
+def index(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("login"))
+    else:
+        my_list = []
+        for i in Empresas.objects.all():
+            try:
+                my_list.append(i)
+                contUm['my_list'] = my_list
+            except:
+                print('Except')
+        contUm['page'] = 'DashBoard-1'
+        contUm['list_size'] = len(my_list)
+        contUm['receita_total'] = Calculations().total_valor(my_list)
+        contUm['receita_total'] = Calculations().convert_money(contUm['receita_total'])
+        contUm['total_chamados'] = Calculations().total_chamados(my_list)
+        
+        return render(request, "tasks/index.html",contUm)
 
 def empresas(request, *args, **kwargs):
-    my_list = []
+    my_list = []    
     
-    for i in range(Empresas.objects.count()):
-        my_list.append(Empresas.objects.get(id=i+1))
-        contUm['my_list'] = my_list
+    for i in  Empresas.objects.all():
+        try:
+            my_list.append(i)
+            contUm['my_list'] = my_list
+        except:
+            print('Except')
     contUm['page'] = 'Empresas'
     calc = Calculations()
     my_list_item = calc.call_calc_unit(my_list)
@@ -34,13 +52,17 @@ def empresas(request, *args, **kwargs):
     return render(request, "tasks/empresas.html",contUm)
 
 def add_empresas(request):
-    form = EmpresasForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-    contUm['page'] = 'DashBoard-1'
-    contUm['list_size'] = len(my_list)
-    contUm['form'] = form
-    return render(request, "tasks/add_empresas.html",contUm)
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("login"))
+    else:
+        form = EmpresasForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+        contUm['page'] = 'Cadastro Empresas'
+        contUm['list_size'] = len(my_list)
+        contUm['form'] = form
+        print(form)
+        return render(request, "tasks/add_empresas.html",contUm)
 
 def index2(request):
     return render(request, "tasks/index2.html",{
@@ -59,3 +81,31 @@ def relatorio_empresas(request):
     contUm['list_size'] = len(my_list)
     contUm['form'] = form
     return render(request, "tasks/relatorio_empresas.html",contUm)  
+
+def chart(request):
+    my_list = []
+    for i in Empresas.objects.all():
+        try:
+            my_list.append(i)
+            contUm['my_list'] = my_list
+        except:
+            print('Except')
+    contUm['page'] = 'DashBoard-1'
+    contUm['list_size'] = len(my_list)
+    contUm['receita_total'] = Calculations().total_valor(my_list)
+    contUm['receita_total'] = Calculations().convert_money(contUm['receita_total'])
+    contUm['total_chamados'] = Calculations().total_chamados(my_list)
+    return render(request, "tasks/chartjs.html",contUm)  
+
+def add_tickets(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("login"))
+    else:
+
+        form = TicketsForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+        contUm['page'] = 'Ticket'
+        contUm['list_size'] = len(my_list)
+        contUm['form'] = form
+        return render(request, "tasks/add_ticket.html",contUm)

@@ -27,3 +27,14 @@ class Calculations():
             unit_dict[itens.name] = self.calc_unit(itens.contract_value,itens.contract_pack)
         
         return unit_dict
+
+    def convert_money(self,string):
+        string = 'R$ {:,.2f}'.format(string)
+        return string
+
+    def convert_to_list(self, my_list):
+        list_values= {}
+        for i in my_list:
+            list_values[i.name] = self.convert_money(i.contract_value)
+        print(list_values)
+        return list_values
