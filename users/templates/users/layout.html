@@ -1,10 +1,28 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Users</title>
-    </head>
-    <body>
-        {% block body %}
-        {% endblock %}
+    <title>Core | {{page}}</title>
+    {% include 'tasks/layouts/header.html' %}
+    
+   
+    <body class=""style="width: 20rem;margin:10% auto;
+    background-image: url('{% static 'dist/img/core-login.png' %}'); background-repeat: no-repeat;background-position: center; background-size: 80%;">
+        <!-- Main NavBar Container -->
+        <!-- Main NavBar Container -->
+        <!-- Main Sidebar Container -->
+        <!-- Main Sidebar Container -->
+        <!-- Main HeadBody Container -->    
+        <!-- Main Content Container -->
+            {% block content %}
+            {% endblock content %}
+        <!-- Main Content Container -->
+            
+        <!-- Main Footer Container -->
+          
+        <!-- Main Footer Container -->
+        
+        
+            <!-- ./wrapper -->
+        
     </body>
 </html>

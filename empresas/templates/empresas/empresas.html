@@ -1,0 +1,101 @@
+{% extends "tasks/layouts/layout.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    
+    
+    <form method="POST">
+      {% csrf_token %}
+        <div class="card card-primary" style="margin:1% 10% 0% 10%">
+            <div class="card-header">
+              <h3 class="card-title"><b>Nova Empresa</b></h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form role="form">
+              <div class="card-body">
+                
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            {{ form.name|as_crispy_field }} 
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            {{ form.contract_pack|as_crispy_field }} 
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                        {{ form.contract_value|as_crispy_field }} 
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                        {{ form.cnpj|as_crispy_field }}
+                      </div>
+                  </div>
+                  <div class="col-sm-2">
+                    <div class="form-group">
+                      {{ form.owner|as_crispy_field }}
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="form-row">
+                  <div class="col-sm-12">
+                      <div class="form-group">
+                        {{ form.end_contract|as_crispy_field }}
+                      </div>
+                  </div>
+                  
+                </div>
+                <div class="form-row">
+                  <div class="col-sm-12">
+                      <div class="form-group">
+                        {{ form.start_data|as_crispy_field }}
+                      </div>
+                  </div>
+                  
+                </div>
+                <div class="form-row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                          {{ form.service_level|as_crispy_field }}
+                        </div>
+                    </div>
+                    
+                  </div>
+                  <div class="form-row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                          {{ form.excedent|as_crispy_field }}
+                        </div>
+                    </div>
+                    
+                  </div>
+                  <div class="form-row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                          {{ form.it_respon|as_crispy_field }}
+                        </div>
+                    </div>
+                    
+                  </div>
+              </div>
+              <!-- /.card-body -->
+              
+              <div class="card-footer">
+                <input type="hidden" name="responsavel" value="{{request.user.first_name}} {{request.user.last_name}}" maxlength="30" required id="id_responsavel">
+                <input type="hidden" name="data_abertura" value={{today}} required id="id_data_abertura"> 
+                <input type="hidden" name="protocolo" value= {{protocolo}} maxlength="30" required id="id_protocolo">
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a class="btn btn-secondary float-right" href="{% url 'index' %}">Voltar ao Início</a>
+              </div>
+            </form>
+          </div>   
+{% endblock %}

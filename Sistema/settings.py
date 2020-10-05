@@ -25,7 +25,7 @@ SECRET_KEY = 'g_9sp6!wzm)y8ftis7p3_=-8!cvl4h+e5h3@ywl04#ms=4t3m*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['gagude.pythonanywhere.com','192.168.0.102','192.168.0.103','127.0.0.1']
+ALLOWED_HOSTS = ['gagude.pythonanywhere.com','192.168.0.100','192.168.0.15','127.0.0.1']
 
 
 # Application definition
@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'tasks',
     'users',
     'tickets',
-    
+    'empresas',
+    'financeiro',
+    'rest_framework',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
@@ -120,6 +122,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

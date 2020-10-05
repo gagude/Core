@@ -17,10 +17,13 @@ class AddTicket(forms.ModelForm):
 
     def change_protocolo(self, data):
         self.protocolo = data
+        
+    
 
     class Meta:
         model = Tickets
         exclude = ('',)
+        
         
 # class ExampleModelForm(forms.ModelForm):
 #     def __init__(self, *args, **kwargs):

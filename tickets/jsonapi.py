@@ -1,0 +1,11 @@
+import json
+import requests 
+
+headers = {'token': 'a7d9b4b8b8f66da7bf5139389d41eec72ca9f42c1d5832e22c4d4ce174e26aea' }
+
+
+resp = requests.get('http://smart-api.smartnx.io/api/v1/helpdesk/tickets?company_id=28&rows=10&page=1',headers=headers)
+
+class Jason():
+    def printResp(self):
+        print (resp.json())

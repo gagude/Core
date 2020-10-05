@@ -7,7 +7,7 @@
     <a href="http://empresacore.com" class="brand-link">
       <img src={% static "dist/img/core-bg.png" %} alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Core Tec</span>
+      <span class="brand-text font-weight-light">Core Tec </span>
     </a>
 
     <!-- Sidebar -->
@@ -20,7 +20,7 @@
         </div>
         <div class="info">
             <!-- Change User name and Link by user -->
-          <a href="#" class="d-block">{{user.first_name}} {{user.last_name}}</a>
+          <a href="#" class="d-block">{{senha}}</a>
         </div>
       </div>
 
@@ -38,7 +38,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{% url 'index' %}" class="nav-link active">
+                <a href="{% url 'tasks:index' %}" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard</p>
                 </a>
@@ -116,7 +116,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{% url 'chart' %}" class="nav-link">
+                <a href="{% url 'relatorio_empresas' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Relatórios</p>
                 </a>

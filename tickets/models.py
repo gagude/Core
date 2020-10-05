@@ -8,12 +8,11 @@ tp = ()
 class Tickets(models.Model):  
     tp = ()
     lista = []
-    def change_tp(self):
+    def change_tp(self,ls):
         for itens in Empresas.objects.all():
-            lista.append((itens.name,itens.name))
-        print(tp)
-        return tuple(lista)
-    tp = change_tp(lista)
+            ls.append((itens.name,itens.name))
+        return tuple(ls)
+    tp = change_tp(lista,lista)
     u_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     tipo = models.CharField(max_length=30)
     assunto = models.CharField(max_length=30)
@@ -24,7 +23,7 @@ class Tickets(models.Model):
     service = models.CharField(max_length=30)
     descri = models.CharField(max_length=500)
     protocolo = models.CharField(max_length=30)
-    choicing = models.CharField(default ='Core',max_length=100,choices=tp)
+    choicing = models.CharField(default ='Sothis',max_length=100,choices=tp)
 
     # def __init__(self, tipo, assunto, data_abertura, cliente, responsavel, status, service, descri):
     #         self.tipo = tipo

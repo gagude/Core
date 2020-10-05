@@ -7,7 +7,7 @@ from .models import Tickets
 from .calculations import Calculations
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+from users.models import Profile
 # Create your views here.
 tasks = {"foo", "Bar", "baz"}
 
@@ -32,7 +32,34 @@ def index(request):
         contUm['receita_total'] = Calculations().total_valor(my_list)
         contUm['receita_total'] = Calculations().convert_money(contUm['receita_total'])
         contUm['total_chamados'] = Calculations().total_chamados(my_list)
-        
+        for itens in Profile.objects.all():
+             print('Enter FOR')
+             if itens.user == request.user:
+                 print('Enter IF')
+                 contUm['senha'] = itens.user.username
+        return render(request, "tasks/index.html",contUm)
+
+def index2(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("login"))
+    else:
+        my_list = []
+        for i in Empresas.objects.all():
+            try:
+                my_list.append(i)
+                contUm['my_list'] = my_list
+            except:
+                print('Except')
+        contUm['page'] = 'DashBoard-SUPERVISOR'
+        contUm['list_size'] = len(my_list)
+        contUm['receita_total'] = Calculations().total_valor(my_list)
+        contUm['receita_total'] = Calculations().convert_money(contUm['receita_total'])
+        contUm['total_chamados'] = Calculations().total_chamados(my_list)
+        for itens in Profile.objects.all():
+             print('Enter FOR')
+             if itens.user == request.user:
+                 print('Enter IF')
+                 contUm['senha'] = itens.user.first_name
         return render(request, "tasks/index.html",contUm)
 
 def empresas(request, *args, **kwargs):
@@ -49,7 +76,7 @@ def empresas(request, *args, **kwargs):
     my_list_item = calc.call_calc_unit(my_list)
     print(my_list_item)
     contUm['list_size'] = len(my_list)
-    return render(request, "tasks/empresas.html",contUm)
+    return render(request, "empresas/empresas.html",contUm)
 
 def add_empresas(request):
     if not request.user.is_authenticated:
@@ -62,12 +89,8 @@ def add_empresas(request):
         contUm['list_size'] = len(my_list)
         contUm['form'] = form
         print(form)
-        return render(request, "tasks/add_empresas.html",contUm)
+        return render(request, "empresas/empresas.html",contUm)
 
-def index2(request):
-    return render(request, "tasks/index2.html",{
-        "tasks": tasks
-    })   
 
 def ini_sup(request):
     

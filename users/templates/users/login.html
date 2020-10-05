@@ -1,13 +1,37 @@
 {% extends "users/layout.html" %}
 
-{% block body %}
-    {% if message %}
-        <div>{{message}}</div>
-    {% endif %}
-    <form action="{% url 'login' %}" method="POST">
-        {% csrf_token %}
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit" valu="Login">
+{% block content %}
+    
+    <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+    <div class="card card-primary " >
+        <div class="card-header col-sm-12 d-flex justify-content-center">
+            <h5>Login</h5>
+            {% if message %}
+                <div>{{message}}</div>
+            {% endif %}
+        </div>
+       
+        
+        <form role="form">    
+        <div class="card-body" >
+            <div class="form-row">
+              <div class="col-sm-12 d-flex justify-content-center">
+                  <div class="form-group">
+                    <strong>Login: </strong> <input type="text" name="username" placeholder="Username">
+                  </div>
+                </div>
+            <div class="col-sm-12 d-flex justify-content-center">
+                    <div class="form-group">
+                        <strong>Senha: </strong><input type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+                <div class="col-sm-12 d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary d-flex justify-content-center">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        </form>
     </form>
+    
 {% endblock %}
