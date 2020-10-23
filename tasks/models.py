@@ -10,16 +10,16 @@ CHOICES= (
 
 # Create your models here.
 class Empresas(models.Model):
-    name = models.CharField(max_length=30)
-    contract_pack = models.IntegerField()
-    contract_value = models.DecimalField(max_digits=9, decimal_places=2)
-    cnpj = models.CharField(max_length=30)
-    owner = models.CharField(max_length=60)
-    start_data = models.DateField()
-    end_contract = models.DateField()
-    service_level = models.CharField(default ='1',max_length=1, choices=CHOICES)
-    excedent = models.DecimalField(max_digits=6, decimal_places=2)
-    it_respon = models.CharField(max_length=60)
+    name = models.CharField(max_length=30, blank=True, null=True)
+    contract_pack = models.IntegerField(blank=True, null=True, default=0)
+    contract_value = models.DecimalField(max_digits=9, decimal_places=2, blank=True, null=True, default=0)
+    cnpj = models.CharField(max_length=30, blank=True, null=True)
+    owner = models.CharField(max_length=60, blank=True, null=True)
+    start_data = models.DateField(blank=True, null=True)
+    end_contract = models.DateField(blank=True, null=True)
+    service_level = models.CharField(default ='1',max_length=1, choices=CHOICES, blank=True, null=True)
+    excedent = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, default=0)
+    it_respon = models.CharField(max_length=60, blank=True, null=True)
 
 class Tickets(models.Model):
     

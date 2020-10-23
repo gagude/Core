@@ -1,6 +1,7 @@
 # from .forms import TicketsForm
 from .forms import AddTicket
 from .models import Tickets
+from .models import CallFunc
 from .calculations import Calculations
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -23,7 +24,8 @@ class TicektsViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Tickets.objects.all().order_by('u_id')
+    
+    queryset = Tickets.objects.all().order_by('id')
     serializer_class = TicketsSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -51,7 +53,6 @@ def index(request):
         return render(request, "tickets/index.html")
 
 def add_tickets(request):
-    Jason.printResp('asd')
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
     else:

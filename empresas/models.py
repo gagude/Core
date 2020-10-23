@@ -9,13 +9,13 @@ CHOICES= (
 
 # Create your models here.
 class Empresas(models.Model):
-    name = models.CharField(max_length=30)
-    contract_pack = models.IntegerField()
-    contract_value = models.DecimalField(max_digits=9, decimal_places=2)
-    cnpj = models.CharField(max_length=30)
-    owner = models.CharField(max_length=60)
-    start_data = models.DateField()
-    end_contract = models.DateField()
-    service_level = models.CharField(default ='1',max_length=1, choices=CHOICES)
-    excedent = models.DecimalField(max_digits=6, decimal_places=2)
-    it_respon = models.CharField(max_length=60)
+    name = models.CharField(max_length=30, blank=True, )
+    contract_pack = models.IntegerField(blank=True)
+    contract_value = models.DecimalField(max_digits=9, decimal_places=2, blank=True)
+    cnpj = models.CharField(max_length=30, blank=True)
+    owner = models.CharField(max_length=60, blank=True)
+    start_data = models.DateField(blank=True)
+    end_contract = models.DateField(blank=True)
+    service_level = models.CharField(default ='1',max_length=1, choices=CHOICES, blank=True)
+    excedent = models.DecimalField(max_digits=6, decimal_places=2, blank=True)
+    it_respon = models.CharField(max_length=60, blank=True)
