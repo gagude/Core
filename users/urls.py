@@ -1,10 +1,9 @@
 from django.urls import path
 from . import views
-from tasks import views as vs
+from tasks import views as tk
 
 urlpatterns = [
-    path("", vs.index, name="initial_page"),
-    path("initial_page2", vs.index2, name="initial_page2"),
+    path("", tk.index, name="index"),
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout")
 ]

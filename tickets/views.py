@@ -1,26 +1,24 @@
 # from .forms import TicketsForm
 from .forms import AddTicket
 from .models import Tickets
-from .models import CallFunc
 from .calculations import Calculations
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from  datetime import date
+from datetime import date
 from .jsonapi import Jason
-from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from rest_framework import permissions
-from .serializers import UserSerializer, GroupSerializer, TicketsSerializer
+from .serializers import TicketsSerializer
 
 
 
 # Create your views here.
-contUm = {}
-my_list = []
-contUm['cont_ticket'] = 0
-class TicektsViewSet(viewsets.ModelViewSet):
+context = {}
+context['cont_ticket'] = 0
+
+class TicektsViewSet(viewsets.ModelViewSet): #Ticket View
     """
     API endpoint that allows users to be viewed or edited.
     """
@@ -29,22 +27,7 @@ class TicektsViewSet(viewsets.ModelViewSet):
     serializer_class = TicketsSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
-
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 def index(request):
     if not request.user.is_authenticated:
@@ -65,22 +48,20 @@ def add_tickets(request):
                 form.save()
                 form.full_clean()
         form = AddTicket()
-        contUm['page'] = 'Cadastro Ticket'
-        contUm['list_size'] = len(my_list)
-        contUm['form'] = form
-        contUm['today'] = date.today().strftime("%d/%m/%Y")
+        context['page'] = 'Cadastro Ticket'
+        context['form'] = form
+        context['today'] = date.today().strftime("%d/%m/%Y")
         #calculations = Calculations()
-        contUm['cont_ticket'] += 1
+        context['cont_ticket'] += 1
         #cont = calculations.calc_cont(Tickets.objects.all())
-        contUm['protocolo'] = date.today().strftime("%Y%m%d")+ "%03d" % request.user.id + "%03d" % contUm['cont_ticket']
+        context['protocolo'] = date.today().strftime("%Y%m%d")+ "%03d" % request.user.id + "%03d" % context['cont_ticket']
         
         
-        return render(request, "tickets/add_ticket.html",contUm)
+        return render(request, "tickets/add_ticket.html",context)
 
 def relatorio_tickets(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
     else:
-        contUm['page'] = 'Relatorio Ticket'
-        contUm['list_size'] = len(my_list)
-        return render(request, "tickets/relatorio_tickets.html",contUm)
+        context['page'] = 'Relatorio Ticket'
+        return render(request, "tickets/relatorio_tickets.html",context)

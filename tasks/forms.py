@@ -1,6 +1,5 @@
 from django import forms
 from .models import Empresas
-from .models import Tickets
 
 class EmpresasForm(forms.ModelForm):
     class Meta:
@@ -21,19 +20,7 @@ class EmpresasForm(forms.ModelForm):
             'it_respon'
         ]
         
-class TicketsForm(forms.ModelForm):
-    class Meta:
-        model = Tickets
-        fields = [
-            'tipo',
-            'assunto',
-            'data_abertura',
-            'cliente',
-            'responsavel',
-            'status',
-            'service',
-            'descri',
-        ]
+
 
 
     

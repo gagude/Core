@@ -3,10 +3,31 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import login,logout,authenticate
 from .models import Profile
+from django.contrib.auth.models import User, Group
+from rest_framework import viewsets
+from rest_framework import permissions
+from .serializers import UserSerializer, GroupSerializer
 # Create your views here.
 
 
     
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
 
 def index(request):
     if not request.user.is_authenticated:
@@ -37,12 +58,12 @@ def login_view(request):
                 print('Runing for One More Time')
                 if request.user == itens.user:
                     print("USER == ITENS USER")
-                    if itens.cargo =="Supervisor":
+                    if itens.cargo == "1":
                         print("RENDERING INDEX 2")
-                        return HttpResponseRedirect(reverse("initial_page2"))
+                        return HttpResponseRedirect(reverse("index"))
             else:
                 print("RENDERING INDEX 1")
-                return HttpResponseRedirect(reverse("initial_page"))     
+                return HttpResponseRedirect(reverse("index"))     
         else:
             return render(request, "users/login.html",{
               "message":"invalid credentials"  

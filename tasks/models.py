@@ -21,19 +21,6 @@ class Empresas(models.Model):
     excedent = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True, default=0)
     it_respon = models.CharField(max_length=60, blank=True, null=True)
 
-class Tickets(models.Model):
-    
-    u_id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
-    tipo = models.CharField(max_length=30)
-    assunto = models.CharField(max_length=30)
-    data_abertura = models.DateField()
-    cliente = models.CharField(max_length=30)
-    responsavel = models.CharField(max_length=30)
-    status = models.CharField(max_length=30)
-    service = models.CharField(max_length=30)
-    descri = models.CharField(max_length=500)
-    protocolo =  models.CharField(max_length=30)
-
 class Chamadas(models.Model):
     id_unico = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     tipo = models.CharField(max_length=30)

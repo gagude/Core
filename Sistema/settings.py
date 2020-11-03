@@ -25,6 +25,7 @@ SECRET_KEY = 'g_9sp6!wzm)y8ftis7p3_=-8!cvl4h+e5h3@ywl04#ms=4t3m*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#Hosts permitidos rodar a aplicação. "local e online"
 ALLOWED_HOSTS = ['gagude.pythonanywhere.com','192.168.0.100','192.168.0.15','127.0.0.1']
 
 
@@ -37,16 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
+    'crispy_forms', #Formularios direto do models
     'tasks',
     'users',
     'tickets',
-    'empresas',
-    'financeiro',
-    'rest_framework',
-    'rest_framework.authtoken',
+    'rest_framework', #Cria API para aplicação  
+    'rest_framework.authtoken', #Adiciona autenticação por Header Token
 ]
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4' #Template visual formularios 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -122,7 +121,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
+#Configurações Rest API
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
@@ -133,7 +132,7 @@ REST_FRAMEWORK = {
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] #Python Anywhere static files
+STATIC_URL = '/static/' #Python Anywhere static files
 
-STATIC_ROOT = 'home/gagude/Core/static'
+STATIC_ROOT = 'home/gagude/Core/static' #Python Anywhere static files folders
