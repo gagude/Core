@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from rest_framework.reverse import reverse
 from django.urls import reverse
 from datetime import date
-
+from .jsonapi import Jason
 from rest_framework import viewsets
 from rest_framework import permissions
 from .serializers import TicketsSerializer
