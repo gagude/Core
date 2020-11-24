@@ -42,10 +42,10 @@ INSTALLED_APPS = [
     'tasks',
     'users',
     'tickets',
-    'rest_framework', #Cria API para aplicação  
+    'rest_framework', #Cria API para aplicação
     'rest_framework.authtoken', #Adiciona autenticação por Header Token
 ]
-CRISPY_TEMPLATE_PACK = 'bootstrap4' #Template visual formularios 
+CRISPY_TEMPLATE_PACK = 'bootstrap4' #Template visual formularios
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -64,14 +64,14 @@ TEMPLATES = [
         'DIRS': [os.path.join((BASE_DIR), 'templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
-            
+
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            
+
         },
     },
 ]
