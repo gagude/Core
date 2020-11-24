@@ -10,7 +10,8 @@ lista = [
     ('4', 'FINANCEIRO'),
     ('5', 'FUTURO CLIENTE'),
     ('6', 'NÃO REGISTRADO'),
-    ('7', 'RECHAMADA'),]
+    ('7', 'RECHAMADA'),
+    ('8', 'Teste'),]
 
 class Tickets(models.Model):  
     
