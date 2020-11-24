@@ -1,0 +1,89 @@
+{% extends "tasks/layouts/layout_pop.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    
+    
+    <form method="POST">
+      {% csrf_token %}
+        <div class="card card-primary" style="margin:1% 10% 0% 10%">
+            <div class="card-header">
+              <h3 class="card-title"><b>Ticket: {{ protocolo }}</b></h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form role="form">
+              <div class="card-body">
+                <div class="form-row">
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                        <h4>Data abertura: {{today}}</h4>
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                        <h4>Responsavel: {{request.user}} </h4>
+                      </div>
+                  </div>
+              </div>
+                 
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            {{ form.assunto|as_crispy_field }} 
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            {{ form.service|as_crispy_field }} 
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                        {{ form.tipo|as_crispy_field }} 
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                        {{ form.cliente|as_crispy_field }}
+                      </div>
+                  </div>
+                  <div class="col-sm-2">
+                    <div class="form-group">
+                      {{ form.status|as_crispy_field }}
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="form-row">
+                  <div class="col-sm-12">
+                      <div class="form-group">
+                        {{ form.descri|as_crispy_field }}
+                      </div>
+                  </div>
+                  
+                </div>
+                <div class="form-row">
+                  <div class="col-sm-12">
+                      <div class="form-group">
+                        {{ form.empresa|as_crispy_field }}
+                      </div>
+                  </div>
+                  
+                </div>
+              </div>
+              <!-- /.card-body -->
+              
+              <div class="card-footer">
+                <input type="hidden" name="responsavel" value="{{request.user.first_name}} {{request.user.last_name}}" maxlength="30" required id="id_responsavel">
+                <input type="hidden" name="data_abertura" value={{today}} required id="id_data_abertura"> 
+                <input type="hidden" name="protocolo" value= {{protocolo}} maxlength="30" required id="id_protocolo">
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a class="btn btn-secondary float-right" href="{% url 'index' %}">Voltar ao Início</a>
+              </div>
+            </form>
+          </div>   
+{% endblock %}

@@ -8,6 +8,7 @@ router = routers.DefaultRouter()
 router.register(r'users', us.UserViewSet)
 router.register(r'groups', us.GroupViewSet)
 router.register(r'ticketsAPI', views.TicektsViewSet)
+router.register(r'rootAPI', views.APIRootView)
 
 urlpatterns = [
     path('', include("users.urls")),

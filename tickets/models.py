@@ -12,8 +12,6 @@ lista = [
     ('6', 'NÃO REGISTRADO'),
     ('7', 'RECHAMADA'),]
 
-
-        
 class Tickets(models.Model):  
     
     tipo = models.CharField("Tipo",max_length=30, blank=True)
@@ -23,8 +21,8 @@ class Tickets(models.Model):
     responsavel = models.CharField(max_length=30, blank=False)
     status = models.CharField(max_length=30, blank=True)
     service = models.CharField(max_length=30, blank=True)
-    descri = models.CharField("Descrição",max_length=500, blank=False)
-    protocolo = models.CharField(max_length=30, blank=False) 
+    descri = models.CharField("Descrição",max_length=500, blank=True)
+    protocolo = models.CharField(max_length=30, blank=True) 
     empresa = models.CharField(default='Core', max_length=100, blank=False)
     id_ligacao = models.CharField(max_length=40,blank=False)
-    
+

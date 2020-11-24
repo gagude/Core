@@ -39,11 +39,6 @@ def index(request):
         
 
 
-
-
-
-
-
 def ini_sup(request):
     
     return render(request, "tasks/ini_sup.html")   

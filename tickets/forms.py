@@ -25,34 +25,5 @@ class AddTicket(forms.ModelForm):
         exclude = ('',)
         
         
-# class ExampleModelForm(forms.ModelForm):
-#     def __init__(self, *args, **kwargs):
-#         super(ExampleModelForm, self).__init__(*args, **kwargs)
-
-#         # If you pass FormHelper constructor a form instance
-#         # It builds a default layout with all its fields
-#         self.helper = FormHelper(self)
-
-#         # You can dynamically adjust your layout
-#         self.helper.layout.append(Submit('save', 'save'))
-
-#     class Meta:
-#         model = ExampleModel
-
-
-# class TicketsForm(forms.ModelForm):
-#     class Meta:
-#         model = Tickets
-#         fields = [
-#             'tipo',
-#             'assunto',
-#             'data_abertura',
-#             'cliente',
-#             'responsavel',
-#             'status',
-#             'service',
-#             'descri',
-#         ]
-
 
     

@@ -5,18 +5,22 @@ from .calculations import Calculations
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+from rest_framework.reverse import reverse
 from django.urls import reverse
 from datetime import date
 from .jsonapi import Jason
 from rest_framework import viewsets
 from rest_framework import permissions
 from .serializers import TicketsSerializer
-
+from django.utils.timezone import now
+from rest_framework.views import APIView
 
 
 # Create your views here.
 context = {}
 context['cont_ticket'] = 0
+
+
 
 class TicektsViewSet(viewsets.ModelViewSet): #Ticket View
     """
@@ -42,7 +46,7 @@ def add_tickets(request):
         if request.method == 'POST':
             
             form = AddTicket(request.POST or None)
-            print (form)
+            
             
             if form.is_valid():
                 form.save()
@@ -57,7 +61,10 @@ def add_tickets(request):
         context['protocolo'] = date.today().strftime("%Y%m%d")+ "%03d" % request.user.id + "%03d" % context['cont_ticket']
         
         
-        return render(request, "tickets/add_ticket.html",context)
+        return render(request, "tickets/add_ticket_POP.html",context)
+
+
+
 
 def relatorio_tickets(request):
     if not request.user.is_authenticated:
