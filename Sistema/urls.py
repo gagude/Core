@@ -8,7 +8,6 @@ router = routers.DefaultRouter()
 router.register(r'users', us.UserViewSet)
 router.register(r'groups', us.GroupViewSet)
 router.register(r'ticketsAPI', views.TicektsViewSet)
-router.register(r'rootAPI', views.APIRootView)
 
 urlpatterns = [
     path('', include("users.urls")),
@@ -18,7 +17,7 @@ urlpatterns = [
     path('', include(('tasks.urls', 'tasks'), namespace='tasks')),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-   
+
 ]
 
 

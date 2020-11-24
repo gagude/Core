@@ -8,7 +8,6 @@ from django.http import HttpResponseRedirect
 from rest_framework.reverse import reverse
 from django.urls import reverse
 from datetime import date
-from .jsonapi import Jason
 from rest_framework import viewsets
 from rest_framework import permissions
 from .serializers import TicketsSerializer
@@ -26,7 +25,7 @@ class TicektsViewSet(viewsets.ModelViewSet): #Ticket View
     """
     API endpoint that allows users to be viewed or edited.
     """
-    
+
     queryset = Tickets.objects.all().order_by('id')
     serializer_class = TicketsSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -44,10 +43,10 @@ def add_tickets(request):
         return HttpResponseRedirect(reverse("login"))
     else:
         if request.method == 'POST':
-            
+
             form = AddTicket(request.POST or None)
-            
-            
+
+
             if form.is_valid():
                 form.save()
                 form.full_clean()
@@ -59,8 +58,8 @@ def add_tickets(request):
         context['cont_ticket'] += 1
         #cont = calculations.calc_cont(Tickets.objects.all())
         context['protocolo'] = date.today().strftime("%Y%m%d")+ "%03d" % request.user.id + "%03d" % context['cont_ticket']
-        
-        
+
+
         return render(request, "tickets/add_ticket_POP.html",context)
 
 
