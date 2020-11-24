@@ -21,7 +21,7 @@
                   </div>
                   <div class="col-sm-6">
                       <div class="form-group">
-                        <h4>Responsavel: {{request.user}} </h4>
+                        <h4>Responsavel: {{responsavel}} </h4>
                       </div>
                   </div>
               </div>
@@ -47,7 +47,7 @@
                   </div>
                   <div class="col-sm-4">
                       <div class="form-group">
-                        {{ form.cliente|as_crispy_field }}
+                        Cliente: {{cliente}}
                       </div>
                   </div>
                   <div class="col-sm-2">
@@ -68,7 +68,7 @@
                 <div class="form-row">
                   <div class="col-sm-12">
                       <div class="form-group">
-                        {{ form.empresa|as_crispy_field }}
+                        Empresa: {{empresa}}
                       </div>
                   </div>
                   
@@ -77,9 +77,11 @@
               <!-- /.card-body -->
               
               <div class="card-footer">
-                <input type="hidden" name="responsavel" value="{{request.user.first_name}} {{request.user.last_name}}" maxlength="30" required id="id_responsavel">
-                <input type="hidden" name="data_abertura" value={{today}} required id="id_data_abertura"> 
-                <input type="hidden" name="protocolo" value= {{protocolo}} maxlength="30" required id="id_protocolo">
+                <input type="hidden" name="responsavel" value="{{responsavel}}" maxlength="30" required id="id_responsavel"> 
+                <input type="hidden" name="protocolo" value= "{{protocolo}}" maxlength="30" required id="id_protocolo">
+                <input type="hidden" name="id_ligacao" value="{{id_lig}}" maxlength="30" required id="id_ligacao">
+                <input type="hidden" name="data_abertura" value="{{today}}" maxlength="30" required id="data_abertura">
+                <input type="hidden" name="empresa" value= {{empresa}} maxlength="30" required id="empresa">
                 
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <a class="btn btn-secondary float-right" href="{% url 'index' %}">Voltar ao Início</a>
