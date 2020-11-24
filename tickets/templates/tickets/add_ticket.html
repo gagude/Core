@@ -77,9 +77,10 @@
               <!-- /.card-body -->
               
               <div class="card-footer">
-                <input type="hidden" name="responsavel" value="{{request.user.first_name}} {{request.user.last_name}}" maxlength="30" required id="id_responsavel">
+                <input type="hidden" name="responsavel" value="{{responsavel}}" maxlength="30" required id="id_responsavel">
                 <input type="hidden" name="data_abertura" value={{today}} required id="id_data_abertura"> 
                 <input type="hidden" name="protocolo" value= {{protocolo}} maxlength="30" required id="id_protocolo">
+                <input type="hidden" name="id_ligacao" value= "123" maxlength="30" required id="id_id_ligacao">
                 
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <a class="btn btn-secondary float-right" href="{% url 'index' %}">Voltar ao Início</a>
