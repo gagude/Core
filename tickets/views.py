@@ -47,31 +47,29 @@ def add_tickets(request):
             form = AddTicket(request.POST or None)
 
             if form.is_valid():
-                print('Form Valid')
+
                 form.save()
                 form.full_clean()
-            else:
-                print("NÃO")
         try:
             isNumber = ''+str(request)
             isNumber = isNumber.split('?')[1]
             isNumber = isNumber.split('\'')[0]
         except:
             print(isNumber+'Is Not a Number')
-        
+
         form = AddTicket()
         context['page'] = 'Cadastro Ticket'
         context['form'] = form
-        
+
         #calculations = Calculations()
         context['today'] = datetime.now().strftime("%Y/%m/%d")
         context['date']= datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
-        print(context['date'])
+
         context['responsavel'] = request.user
         context['cont_ticket'] += 1
         #cont = calculations.calc_cont(Tickets.objects.all())
-        context['protocolo'] = date.today().strftime("%Y%m%d")+ "%03d" % request.user.id + "%03d" % context['cont_ticket']
-        
+        context['protocolo'] = str(context['cont_ticket']) + '000'
+
 
         return render(request, "tickets/add_ticket.html",context)
 
@@ -82,33 +80,33 @@ def add_tickets_pop(request):
             isNumber = isNumber.split('?')[1]
             isNumber = isNumber.split('\'')[0]
         except:
-            print(isNumber+'Is Not a Number')
+            print('Is Not a Number')
 
         if request.method == 'POST':
-            print('Form POST')
+
             form = AddTicket(request.POST or None)
             print(form.data)
             if form.is_valid():
-                print('Form Valid')
+
                 if not isNumber.isnumeric():
                     isNumber = form.data['id']
 
-                
+
                 if not form.data['assunto'] == '':
                     Tickets.objects.filter(id = isNumber).update(assunto = form.data['assunto'])
-                    print('AQUI Assunto')
+
                 if not form.data['service'] == '':
                     Tickets.objects.filter(id = isNumber).update(service = form.data['service'])
-                    print('AQUI service')
+
                 if not form.data['tipo'] == '':
                     Tickets.objects.filter(id = isNumber).update(tipo = form.data['tipo'])
-                    print('AQUI tipo')
+
                 if not form.data['status'] == '':
                     Tickets.objects.filter(id = isNumber).update(status = form.data['status'])
-                    print('AQUI status')
-                if not form.data['descri'] == '': 
+
+                if not form.data['descri'] == '':
                     Tickets.objects.filter(id = isNumber).update(descri = form.data['descri'])
-                    print('AQUI descri')
+
 
         based = Tickets.objects.all()
         for itens in based:
@@ -123,21 +121,18 @@ def add_tickets_pop(request):
         form = AddTicket()
         context['page'] = 'Cadastro Ticket'
         context['form'] = form
-        print()
+
         #calculations = Calculations()
-        
-        
+
+
         context['cont_ticket'] += 1
         #cont = calculations.calc_cont(Tickets.objects.all())
-        context['protocolo'] = date.today().strftime("%Y%m%d")+ "%03d" % request.user.id + "%03d" % context['cont_ticket']
+        context['protocolo'] = str(context['cont_ticket']) + '000'
         context['requestsID'] = isNumber
         if isNumber.isnumeric():
-                print('NUMERO')
-                
-
                 return render(request, "tickets/add_ticket_POP.html",context)
         return render(request, "tickets/add_ticket_POP.html",context)
-        
+
 
 def relatorio_tickets(request):
     if not request.user.is_authenticated:
