@@ -17,7 +17,7 @@ class Tickets(models.Model):
     
     tipo = models.CharField("Tipo",max_length=30, blank=True, null=True)
     assunto = models.CharField("Assunto",max_length=30, blank=True, choices=lista,null=True)
-    data_abertura = models.DateField(blank=False)
+    data_abertura = models.DateTimeField(blank=False)
     cliente = models.CharField(max_length=30, blank=True,null=True)
     responsavel = models.CharField(max_length=30, blank=False)
     status = models.CharField(max_length=30, blank=True,null=True)
