@@ -12,8 +12,8 @@ router.register(r'ticketsAPI', views.TicektsViewSet)
 urlpatterns = [
     path('', include("users.urls")),
     path('admin/', admin.site.urls),
-    path('tasks/', include("tasks.urls")),
     path('tickets/', include("tickets.urls")),
+    path('tasks/', include("tasks.urls")),
     path('', include(('tasks.urls', 'tasks'), namespace='tasks')),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

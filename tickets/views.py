@@ -36,6 +36,7 @@ def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
     else:
+        print('Entering Index Tickets')
         return render(request, "tickets/index.html")
 
 def add_tickets(request):
