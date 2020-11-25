@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from rest_framework.reverse import reverse
 from django.urls import reverse
-from datetime import date
+from datetime import date, datetime
 from rest_framework import viewsets
 from rest_framework import permissions
 from .serializers import TicketsSerializer
@@ -64,23 +64,15 @@ def add_tickets(request):
         context['form'] = form
         
         #calculations = Calculations()
-        context['today'] = date.today().strftime("%Y-%m-%d")
+        context['today'] = datetime.now().strftime("%Y/%m/%d")
+        context['date']= datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+        print(context['date'])
         context['responsavel'] = request.user
         context['cont_ticket'] += 1
         #cont = calculations.calc_cont(Tickets.objects.all())
         context['protocolo'] = date.today().strftime("%Y%m%d")+ "%03d" % request.user.id + "%03d" % context['cont_ticket']
-        context['requestsID'] = isNumber
-        if isNumber.isnumeric():
-                print('NUMERO')
-                based = Tickets.objects.all()
-                for itens in based:
-                    if str(itens.id) == str(isNumber):
-                        context['today'] = itens.data_abertura
-                        context['empresa'] = itens.empresa
-                        context['responsavel'] = itens.responsavel
-                        context['cliente'] = itens.cliente
+        
 
-                return render(request, "tickets/add_ticket_POP.html",context)
         return render(request, "tickets/add_ticket.html",context)
 
 
@@ -100,17 +92,29 @@ def add_tickets_pop(request):
                 print('Form Valid')
                 if not isNumber.isnumeric():
                     isNumber = form.data['id']
-                Tickets.objects.filter(id = isNumber).update(assunto = form.data['assunto'])
-                Tickets.objects.filter(id = isNumber).update(service = form.data['service'])
-                Tickets.objects.filter(id = isNumber).update(tipo = form.data['tipo'])
-                Tickets.objects.filter(id = isNumber).update(status = form.data['status'])
-                Tickets.objects.filter(id = isNumber).update(descri = form.data['descri'])
+
+                
+                if not form.data['assunto'] == '':
+                    Tickets.objects.filter(id = isNumber).update(assunto = form.data['assunto'])
+                    print('AQUI Assunto')
+                if not form.data['service'] == '':
+                    Tickets.objects.filter(id = isNumber).update(service = form.data['service'])
+                    print('AQUI service')
+                if not form.data['tipo'] == '':
+                    Tickets.objects.filter(id = isNumber).update(tipo = form.data['tipo'])
+                    print('AQUI tipo')
+                if not form.data['status'] == '':
+                    Tickets.objects.filter(id = isNumber).update(status = form.data['status'])
+                    print('AQUI status')
+                if not form.data['descri'] == '': 
+                    Tickets.objects.filter(id = isNumber).update(descri = form.data['descri'])
+                    print('AQUI descri')
 
         based = Tickets.objects.all()
         for itens in based:
                     if str(itens.id) == str(isNumber):
-                        context['today'] = itens.data_abertura.strftime("%Y%m%d")
-                        context['data_abertura'] = itens.data_abertura
+                        context['today'] = itens.data_abertura.strftime("%Y/%m/%d")
+                        context['data_abertura'] = itens.data_abertura.strftime("%Y-%m-%dT%H:%M:%SZ")
                         context['empresa'] = itens.empresa
                         context['responsavel'] = itens.responsavel
                         context['cliente'] = itens.cliente
