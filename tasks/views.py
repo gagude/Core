@@ -20,6 +20,7 @@ def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
     else:
+        print('Entering Index Tasks')
         my_list = []
         for i in Empresas.objects.all():
             try:
