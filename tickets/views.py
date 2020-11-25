@@ -98,6 +98,8 @@ def add_tickets_pop(request):
             print(form.data)
             if form.is_valid():
                 print('Form Valid')
+                if not isNumber.isnumeric():
+                    isNumber = form.data['id']
                 Tickets.objects.filter(id = isNumber).update(assunto = form.data['assunto'])
                 Tickets.objects.filter(id = isNumber).update(service = form.data['service'])
                 Tickets.objects.filter(id = isNumber).update(tipo = form.data['tipo'])
@@ -107,8 +109,8 @@ def add_tickets_pop(request):
         based = Tickets.objects.all()
         for itens in based:
                     if str(itens.id) == str(isNumber):
-                        context['today'] = itens.data_abertura.strftime("%Y-%m-%d")
-                        print(itens.data_abertura)
+                        context['today'] = itens.data_abertura.strftime("%Y%m%d")
+                        context['data_abertura'] = itens.data_abertura
                         context['empresa'] = itens.empresa
                         context['responsavel'] = itens.responsavel
                         context['cliente'] = itens.cliente
