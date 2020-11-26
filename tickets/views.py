@@ -1,6 +1,6 @@
 # from .forms import TicketsForm
 from .forms import AddTicket
-from .models import Tickets
+from .models import Tickets, Ligacoes
 from .calculations import Calculations
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -10,7 +10,7 @@ from django.urls import reverse
 from datetime import date, datetime
 from rest_framework import viewsets
 from rest_framework import permissions
-from .serializers import TicketsSerializer
+from .serializers import TicketsSerializer, LigacoesSerializer
 from django.utils.timezone import now
 from rest_framework.views import APIView
 
@@ -30,6 +30,14 @@ class TicektsViewSet(viewsets.ModelViewSet): #Ticket View
     serializer_class = TicketsSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+class LigacoesViewSet(viewsets.ModelViewSet): #Ticket View
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+
+    queryset = Ligacoes.objects.all().order_by('id')
+    serializer_class = LigacoesSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 def index(request):

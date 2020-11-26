@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Tickets
+from .models import Tickets, Ligacoes
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -17,4 +17,9 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class TicketsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Tickets
+        fields = '__all__'
+        
+class LigacoesSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Ligacoes
         fields = '__all__'
