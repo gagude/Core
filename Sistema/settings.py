@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'tasks',
     'users',
     'tickets',
+    'vueshow',
+    'client',
+    'reports',
     'rest_framework', #Cria API para aplicação
     'rest_framework.authtoken', #Adiciona autenticação por Header Token
 ]
@@ -123,11 +126,12 @@ USE_L10N = True
 USE_TZ = True
 #Configurações Rest API
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 20,
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',  # <-- And here
     ],
+    
 }
 
 # Static files (CSS, JavaScript, Images)

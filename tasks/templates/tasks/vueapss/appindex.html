@@ -1,0 +1,26 @@
+{% load static %}
+<script>
+    new Vue({
+     
+      el: '#app2',
+      delimiters: ['[[', ']]'], 
+      data: {
+          message: 'Hello Vue!',
+          
+      },
+      methods: {
+          reverseMessage: function(){
+              this.message = this.message.split('').reverse().join('');
+          },
+
+          replaceMessage(newMessage){
+            this.message = newMessage.split('').reverse().join('');
+            this.message =  this.message.toUpperCase()
+          }
+      }
+    })
+
+
+
+</script>
+

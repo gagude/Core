@@ -1,0 +1,258 @@
+{% extends "tasks/layouts/layout.html" %}
+
+{% block content %}
+      
+      
+      <!-- Content -->
+      <div id="myapp">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <router-link
+                class="nav-link text-primary"
+                to="/myteste/author/"
+              >
+                Go to Authors
+              </router-link>
+            </li>
+            <li class="nav-item" >
+              <router-link
+                class="nav-link text-primary"
+                to="/myteste/article/"
+              >
+                <b>Go to Articles</b> 
+              </router-link>
+            </li>
+            <li class="nav-item" >
+              <router-link
+                class="nav-link text-primary"
+                to="/myteste/tickets/"
+              >
+                <b>Go to TicketsList</b> 
+              </router-link>
+            </li>
+          </ul>
+        </nav>
+        <br />
+        <router-view></router-view>
+      </div>
+ 
+
+    <!-- Vue.js -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue-router"></script>
+    <script src="https://unpkg.com/vuex"></script>
+
+    <!-- Vue templates -->
+    <template id="article-list-template">
+      <div class="article-list">
+        <h2>Articles</h2>
+        <article-item
+          v-for="article in articles"
+          v-bind:key="article.slug"
+          v-bind:cliente="article.cliente"
+          v-bind:slug="article.slug"
+          v-bind:responsavel="article.responsavel"
+        ></article-item>
+      </div>
+    </template>
+    
+    <template id="author-list-template">
+      <div class="author-list">
+        <h2>Authors</h2>
+        <author-item
+          v-for="author in authors"
+          v-bind:key="author.slug"
+          v-bind:cliente="author.cliente"
+          v-bind:slug="author.slug"
+        ></author-item>
+      </div>
+    </template>
+    
+    <template id="tickets-list-template">
+      <div class="tickets-list">
+        <h2>Tickets</h2>
+        <tickets-item
+          v-for="tickets in tickets"
+          v-bind:key="tickets.slug"
+          v-bind:empresa="tickets.empresa"
+          v-bind:slug="tickets.slug"
+        ></tickets-item>
+      </div>
+    </template>
+
+    <template id="tickets-item-template">
+      <div class="tickets-item">
+        <span v-if="$route.params.slug">
+          <h3>
+            <router-link
+              v-bind:to="'/myteste/tickets/' + $route.params.slug + '/'"
+              v-html="$store.getters.getTicketsBySlug($route.params.slug)['empresa']"
+            ></router-link>
+          </h3>
+          <div v-html="$store.getters.getTicketsBySlug($route.params.slug)['empresa']"></div>
+        </span>
+        <span v-else>
+          <h3>
+            <router-link
+              v-bind:to="'/myteste/tickets/' + slug + '/'"
+              v-html="empresa"
+           ></router-link>
+         </h3>
+          <div v-html="slug"></div>
+          <hr />
+        </span>
+      </div>
+    </template>
+
+    <template id="article-item-template">
+      <div class="article-item">
+        <span v-if="$route.params.slug">
+          <h3>
+            <router-link
+              v-bind:to="'/myteste/article/' + $route.params.slug + '/'"
+              v-html="$store.getters.getArticleBySlug($route.params.slug)['cliente']"
+            ></router-link>
+          </h3>
+          <div v-html="$store.getters.getArticleBySlug($route.params.slug)['responsavel']"></div>
+        </span>
+        <span v-else>
+          <h3>
+            <router-link
+              v-bind:to="'/myteste/article/' + slug + '/'"
+              v-html="cliente"
+           ></router-link>
+         </h3>
+          <div v-html="responsavel"></div>
+          <hr />
+        </span>
+      </div>
+    </template>
+    
+    <template id="author-item-template">
+      <div class="author-item">
+        <span v-if="$route.params.slug">
+          <b>
+            <router-link v-bind:to="'/myteste/author/' + $route.params.slug + '/'">
+              [[ $store.getters.getAuthorBySlug($route.params.slug)['cliente'] ]]
+            </router-link>
+          </b>
+          ([[ $route.params.slug ]])
+        </span>
+        <span v-else>
+          <b>
+            <router-link v-bind:to="'/myteste/author/' + slug + '/'">
+              [[ cliente ]]
+            </router-link>
+          </b> ([[ slug ]])
+        </span>
+      </div>
+    </template>
+
+    <!-- Vue app -->
+    <script>
+      // store
+      const store = new Vuex.Store({
+        state: {
+            authors: [
+            {% for author in authors %}
+                {
+                  cliente: '{{ author.cliente }}',
+                  slug: '{{ author.slug }}',
+                },
+            {% endfor %}
+            ],
+            articles: [
+            {% for article in articles %}
+                {
+                  responsavel: '{{ article.responsavel | linebreaksbr }}',
+                  cliente: '{{ article.cliente }}',
+                  slug: '{{ article.slug }}',
+                },
+            {% endfor %}
+            ],
+            tickets: [
+            {% for ticket in tickets %}
+                {
+                  empresa: '{{ ticket.empresa | linebreaksbr }}',
+                  cliente: '{{ ticket.cliente }}',
+                  slug: '{{ ticket.slug }}',
+                },
+            {% endfor %}
+            ],
+        },
+        getters: {
+          getArticleBySlug: (state) => (slug) => {
+            return state.articles.find(articles => articles.slug === slug)
+          },
+          getAuthorBySlug: (state) => (slug) => {
+            return state.authors.find(authors => authors.slug === slug)
+          },
+          getTicketsBySlug: (state) => (slug) => {
+            return state.ticekts.find(tickets => tickets.slug === slug)
+          },
+        }
+      })
+
+      // components
+      ArticleList = Vue.component('article-list', {
+        data: function () { return { articles: store.state.articles } },
+        template: '#article-list-template',
+      });   
+
+      TicketsList = Vue.component('tickets-list', {
+        data: function () { return { tickets: store.state.tickets } },
+        template: '#tickets-list-template',
+      });    
+
+      AuthorList = Vue.component('author-list', {
+        data: function () { return { authors: store.state.authors } },
+        template: '#author-list-template',
+      });
+
+      ArticleItem = Vue.component('article-item', {
+        delimiters: ['[[', ']]'],
+        props: ['cliente', 'slug', 'responsavel'],
+        template: '#article-item-template',
+      });
+
+      AuthorItem = Vue.component('author-item', {
+        delimiters: ['[[', ']]'],
+        props: ['cliente', 'slug'],
+        template: '#author-item-template',
+      });
+
+      TicketsItem = Vue.component('tickets-item', {
+        delimiters: ['[[', ']]'],
+        props: ['empresa', 'slug'],
+        template: '#tickets-item-template',
+      });
+
+      // router
+      const routes = [
+        { component: ArticleList, path: '/myteste/article/', },
+        { component: AuthorList,  path: '/myteste/author/',  },
+        { component: TicketsList,  path: '/myteste/tickets/',  },
+        { component: ArticleItem, path: '/myteste/article/:slug/', },
+        { component: AuthorItem,  path: '/myteste/author/:slug/',  },
+        { component: TicketsItem,  path: '/myteste/tickets/:slug/',  },
+      ]
+
+      const router = new VueRouter({
+        mode: 'history',
+        routes: routes,
+      })
+
+      // app
+      const myapp = new Vue({
+          router,
+          store,
+      }).$mount('#myapp');
+    </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  
+    {% endblock %}

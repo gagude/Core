@@ -43,7 +43,7 @@ def index(request):
                         return HttpResponseRedirect(reverse("initial_page2"))
                 else:
                     print("RENDERING INDEX 1")
-                    return HttpResponseRedirect(reverse("initial_page"))    
+                    return HttpResponseRedirect(reverse("initial_page"))
 
 
 def login_view(request):
@@ -53,16 +53,16 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request,user)
-            print(str(request.user)+"  USUARIO ENTERING ELSE")
+            
             for itens in Profile.objects.all():
-                print('Runing for One More Time')
+                
                 if request.user == itens.user:
-                    print("USER == ITENS USER")
+                   
                     if itens.cargo == "1":
-                        print("RENDERING INDEX 2")
+                        
                         return HttpResponseRedirect(reverse("index"))
             else:
-                print("RENDERING INDEX 1")
+                
                 return HttpResponseRedirect(reverse("index"))     
         else:
             return render(request, "users/login.html",{

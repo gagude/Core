@@ -1,5 +1,5 @@
 {% extends "tasks/layouts/layout.html" %}
-
+{% load static %}
 {% block content %}
       <!-- Content Wrapper. Contains page content -->
       
@@ -14,10 +14,17 @@
               <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
-                  <div class="inner">
-                    <h4>Empresas Cadastradas</h4>
-                    <h3>{{list_size}}</h3>
+                 
+                  <div class="inner" >
+                    <div id="app2">
+                      <h4>[[message]]</h4>
+                      <input type="text" placeholder="Campo" v-on:blur="replaceMessage($event.target.value)">
+                    </div>
+                   
+                  
+
                   </div>
+                  
                   <div class="icon">
                     <i class="ion ion-bag"></i>
                   </div>
@@ -29,7 +36,7 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                   <div class="inner">
-                    <h4>Receita Total Empresas</h4>
+                    <h4>Receita Total Empresas {{list_size}}</h4>
                     
                     <h3>{{receita_total}}</h3> 
                   </div>
@@ -46,7 +53,7 @@
                   <div class="inner">
                     
                     <h4>Total Chamados</h4>
-                    <h3>{{total_chamados}}</h3>
+                    <h3>{{total_tickets}}</h3>
     
                     
                   </div>
@@ -62,7 +69,7 @@
                 <div class="small-box {%if total_chamados < 10000000 %}bg-danger{% else %}bg-warning{%endif%}">
                   <div class="inner">
                     <h4>Tickets Abertos</h4>
-                    <h3>65</h3>
+                    <h3>{{tickets_user}}</h3>
     
                     
                   </div>
@@ -105,6 +112,7 @@
                           <th>CNPJ</th>
                           <th>PACOTE</th>
                           <th>VALOR</th>
+                          <th>EXCEDENTE</th>
                         </tr>
                         {% for sub_items in my_list %}
                         
@@ -160,7 +168,7 @@
                     <!-- /.card-tools -->
                   </div>
                   <div class="card-body">
-                    <div id="world-map" style="height: 250px; width: 100%;"></div> 
+                    
                     <div class="card card-primary">
                       <div class="card-header">
                         <h3 class="card-title">Area Chart</h3>
@@ -172,9 +180,7 @@
                         </div>
                       </div>
                       <div class="card-body">
-                        <div class="chart">
-                          <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                        </div>
+                        
                       </div>
                       <!-- /.card-body -->
                     </div>
@@ -213,8 +219,38 @@
             </div>
             <!-- /.row (main row) -->
           </div><!-- /.container-fluid -->
+          <div class="position-relative mb-4"> 
+            <canvas id="areaChart" height="200"></canvas>
+          </div>
+          <div id="app3">
+            <la-cartesian :width="900" :height="200" :data="values">
+                <la-line prop="pv"></la-line>
+                <la-y-axis></la-y-axis>
+                <la-x-axis prop="name"></la-x-axis>
+                <la-tooltip></la-tooltip>
+          </la-cartesian>
+        </div>
+        
+        <script src="//unpkg.com/vue"></script>
+        <script src="//unpkg.com/laue"></script>
+        <script>
+            new Vue({
+                el: '#app3',
+                data: () => ({
+                    values: [
+                      {% for sub_items in my_list %}
+                        { name: '{{sub_items.name}}', pv: '{{sub_items.contract_pack}}' },
+                      {% endfor %}
+                    ],
+                    
+                })
+            })
+        </script>
         </section>
         <!-- /.content -->
-      
-      
+        
+     
+        
+       
 {% endblock content %}
+

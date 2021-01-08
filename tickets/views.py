@@ -71,7 +71,7 @@ def add_tickets(request):
         context['form'] = form
 
         #calculations = Calculations()
-        context['today'] = datetime.now().strftime("%Y/%m/%d")
+        context['today'] = datetime.now().strftime("%d/%m/%Y")
         context['date']= datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
         context['responsavel'] = request.user
@@ -89,7 +89,7 @@ def add_tickets_pop(request):
             isNumber = isNumber.split('?')[1]
             isNumber = isNumber.split('\'')[0]
         except:
-            print('Is Not a Number')
+            print('')
 
         if request.method == 'POST':
 
@@ -120,7 +120,7 @@ def add_tickets_pop(request):
         based = Tickets.objects.all()
         for itens in based:
                     if str(itens.id) == str(isNumber):
-                        context['today'] = itens.data_abertura.strftime("%Y/%m/%d")
+                        context['today'] = itens.data_abertura.strftime("%d/%m/%Y")
                         context['data_abertura'] = itens.data_abertura.strftime("%Y-%m-%dT%H:%M:%SZ")
                         context['empresa'] = itens.empresa
                         context['responsavel'] = itens.responsavel
@@ -136,7 +136,7 @@ def add_tickets_pop(request):
 
         context['cont_ticket'] += 1
         #cont = calculations.calc_cont(Tickets.objects.all())
-        context['protocolo'] = str(context['cont_ticket']) + '000'
+        context['protocolo'] = str(context['cont_ticket']) + '000' 
         context['requestsID'] = isNumber
         if isNumber.isnumeric():
                 return render(request, "tickets/add_ticket_POP.html",context)
@@ -147,5 +147,35 @@ def relatorio_tickets(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
     else:
+        if request.method == "POST":
+            print(request.POST['search'])
+            context['search'] = request.POST['search']
+        else:
+            context['search'] = '0'
         context['page'] = 'Relatorio Ticket'
+        context['my_list'] = Tickets.objects.all()
+        context['lista_objetos'] = list(Tickets.objects.values())
+        
         return render(request, "tickets/relatorio_tickets.html",context)
+
+def relatorio_tickets_view(request,arg1):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("login"))
+    else:
+        if request.method == "POST":
+            print(request.POST['search'])
+            context['search'] = request.POST['search']
+        else:
+            context['search'] = '0'
+        
+        context['search'] = '1'
+        context['arg1'] = arg1
+        context['page'] = 'Relatorio Ticket'
+        context['my_list'] = Tickets.objects.all()
+        counter = 0
+        lista = {}
+        for itens in Tickets.objects.all():
+            counter += 1
+            lista[counter-1] = "{% url 'relatorio_tickets_view' arg1="+counter+" %}"
+        context['url_list'] = "{% url 'relatorio_tickets_view' arg1=2 %}"
+        return render(request, "tickets/relatorio_tickets copy.html",context)

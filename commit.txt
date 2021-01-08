@@ -1,4 +1,0 @@
- modified:   Sistema/__pycache__/urls.cpython-38.pyc
-        modified:   tickets/__pycache__/jsonapi.cpython-38.pyc
-        modified:   tickets/__pycache__/models.cpython-38.pyc
-        modified:   tickets/__pycache__/views.cpython-38.pyc

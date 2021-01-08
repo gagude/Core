@@ -14,3 +14,4 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     cargo = models.CharField(verbose_name="cargo",max_length=20, choices=CARGO)
     ramal = models.CharField('Agente',max_length=30) # Ramal vindo do sistema parceiro para identificação de agente
+    

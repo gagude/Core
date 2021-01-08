@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <title>Core | {{page}}</title>
+    {% include 'tasks/layouts/header.html' %}
+    
+    
+    <body class="hold-transition sidebar-mini layout-fixed">
+        
+        <h1>{{group}}</h1>
+    
+        <div class="wrapper">
+        <!-- Main NavBar Container -->
+            {% include 'tasks/layouts/navbar.html' %}
+        <!-- Main NavBar Container -->
+
+        <!-- Main Sidebar Container -->
+            {% include 'tasks/layouts/sidebar_s.html' %}
+        <!-- Main Sidebar Container -->
+            <div class="content-wrapper">
+        <!-- Main HeadBody Container -->    
+            {% include 'tasks/layouts/page_head.html' %}
+        <!-- Main Content Container -->
+            {% block content %}
+            {% endblock content %}
+        <!-- Main Content Container -->
+            </div>
+        <!-- Main Footer Container -->
+            {% include 'tasks/vueapss/appindex.html' %}
+            {% include 'tasks/layouts/footer.html' %}
+        <!-- Main Footer Container -->
+        </div>
+        
+            <!-- ./wrapper -->
+        
+    </body>
+</html>

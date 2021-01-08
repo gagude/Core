@@ -1,0 +1,47 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Django and Vue.js</title>
+    <style>
+      .router-link-active {
+        color: black;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+    
+   
+    <body class="hold-transition sidebar-mini layout-fixed">
+        <div class="wrapper">
+        <!-- Main NavBar Container -->
+            {% include 'tasks/layouts/navbar.html' %}
+        <!-- Main NavBar Container -->
+
+        <!-- Main Sidebar Container -->
+            {% include 'tasks/layouts/sidebar_s.html' %}
+        <!-- Main Sidebar Container -->
+            <div class="content-wrapper">
+        <!-- Main HeadBody Container -->    
+            {% include 'tasks/layouts/page_head.html' %}
+        <!-- Main Content Container -->
+            {% block content %}
+            {% endblock content %}
+        <!-- Main Content Container -->
+            </div>
+        <!-- Main Footer Container -->
+            {% include 'tasks/layouts/footer.html' %}
+        <!-- Main Footer Container -->
+        </div>
+        
+            <!-- ./wrapper -->
+        
+    </body>
+</html>

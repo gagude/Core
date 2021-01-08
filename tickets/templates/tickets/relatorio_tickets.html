@@ -1,41 +1,104 @@
 {% extends "tasks/layouts/layout.html" %}
+
 {% block content %}
 <section class="content">
 <div class="container-fluid">
     <div class="card">
     <div class="card-body">
         <div class="tab-content p-0">
-            <form method="POST">{% csrf_token %}
-                <select class="custom-select">
-                    <option selected>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-                <input type="submit" value="Search">
-            </form>
-        
+            
+            <div id=meuapp>
+                <form >
+                    <input type="text" placeholder="Responsavel" v-model="search"> 
+                    
+                    <input type="text" placeholder="Empresa" v-model="searchemp"> 
+
+                </form>
             <table style="width:100%" class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th>NOME </th>  
-                    <th>CNPJ</th>
-                    <th>PACOTE</th>
-                    <th>VALOR</th>
+                    <th>ID </th>  
+                    <th>Empresa</th>
+                    <th>Responsavel</th>
+                    <th>Data Abertura</th>
                 </tr>
-                    {% for sub_items in my_list %}
+                   <tr v-for="ticket in resultadoBusca">
+                       <td >[[ticket.id]]</td>
+                       <td >[[ticket.empresa]]</td>
+                       <td >[[ticket.responsavel]]</td>
+                       <td >[[ticket.dataAbertura]]</td>
+                   </tr>
+                    <!-- {% for sub_items in my_list %}
                     <tr>
-                        <td><a href="{% url 'index' %}">{{sub_items.name}}</a></td>
-                        <td>{{sub_items.cnpj}}</td>
-                        <td>{{sub_items.contract_pack}}</td>
-                        <td>{{sub_items.contract_value}}</td>
+                        
+                        
+                        <td><a href="{% url 'index' %}">{{sub_items.protocolo}}</a></td>
+                        <td>{{sub_items.service}}</td>
+                        <td>{{sub_items.empresa}}</td>
+                        <td>{{sub_items.responsavel}}</td> 
                     </tr>
-                    {% endfor %}
+                    {% endfor %} -->
+                        
             </thead>
             </table>
-                       
+        </div>
         </div><!-- /.card-body -->
     </div>
 </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue2-directives/dist/vue-filters.min.js"></script> -->
+
+<script>
+	let meuapp = new Vue({
+    el: '#meuapp',
+    delimiters: ['[[', ']]'],
+    
+	data: { 
+        search : '',
+        searchemp : '',
+        filtered : [],
+        tickets : [
+        {%for itens in my_list%}
+            {   id:'{{itens.id}}',
+                empresa: '{{itens.empresa}}',
+                responsavel: '{{itens.responsavel}}',
+                dataAbertura: '{{itens.data_abertura}}',
+                cliente: '{{itens.cliente}}',
+                assunto: '{{itens.assunto}}',
+                idLigacao: '{{itens.id_ligacao}}',
+                service: '{{itens.service}}',
+                tipo: '{{itens.tipo}}',
+            },
+        {%endfor%}
+            
+        ]
+     },
+    methods: {
+        filterPersons(event) {
+            this.filtered = this.tickets.filter(responsavel=>{
+
+                return responsavel.includes(event.target.value);
+            })
+        }
+    },
+    computed: {
+        resultadoBusca : function(){
+            if(this.search == '' && this.searchemp == '' || this.search == ' '  || this.searchemp == ' ')
+            {
+                return this.filtered;
+            }else
+            {
+                return this.tickets.filter(ticket => ticket.responsavel.toUpperCase().includes(this.search.toUpperCase()) && ticket.empresa.toUpperCase().includes(this.searchemp.toUpperCase()))
+            }
+        },
+        
+    },
+    created(){
+        this.filtered = this.tickets
+    }
+    })
+    
+</script>
 {% endblock content %}
