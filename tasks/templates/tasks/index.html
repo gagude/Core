@@ -16,11 +16,10 @@
                 <div class="small-box bg-info">
                  
                   <div class="inner" >
-                    <div id="app2">
-                      <h4>[[message]]</h4>
-                      <input type="text" placeholder="Campo" v-on:blur="replaceMessage($event.target.value)">
-                    </div>
-                   
+                    
+                    <h4>Pontuação </h4>
+                    
+                    <h3>{{pontuacao}}</h3> 
                   
 
                   </div>
@@ -76,7 +75,7 @@
                   <div class="icon">
                     <i class="ion ion-pie-graph"></i>
                   </div>
-                  <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  <a href="{% url 'tk_rel' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
               <!-- ./col -->

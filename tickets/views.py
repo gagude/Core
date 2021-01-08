@@ -147,6 +147,7 @@ def relatorio_tickets(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
     else:
+        print(request.user)
         if request.method == "POST":
             print(request.POST['search'])
             context['search'] = request.POST['search']
@@ -154,7 +155,9 @@ def relatorio_tickets(request):
             context['search'] = '0'
         context['page'] = 'Relatorio Ticket'
         context['my_list'] = Tickets.objects.all()
-        context['lista_objetos'] = list(Tickets.objects.values())
+        context['lista_objetos'] = len(Tickets.objects.all())
+        for itens in context['my_list']:
+            print("ABC")
         
         return render(request, "tickets/relatorio_tickets.html",context)
 
