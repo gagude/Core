@@ -3,7 +3,7 @@
 {% block content %}
     
     
-    <form method="POST">
+    <form method="POST" >
       {% csrf_token %}
         <div class="card card-primary" style="margin:1% 10% 0% 10%; ">
             <div class="card-header">
@@ -25,7 +25,7 @@
             </div>  
             <!-- /.card-header -->
             <!-- form start -->
-            <form role="form">
+            <form role="form" id="tickets_id">
               <div class="card-body">
                 <div class="form-row">
                   <div class="col-sm-6">
@@ -102,10 +102,17 @@
               
               <div class="card-footer">
                 <input type="hidden" name="responsavel" value="{{responsavel}}" maxlength="30" required id="id_responsavel"> 
-                <input type="hidden" name="protocolo" value= "{{protocolo}}" maxlength="30" required id="id_protocolo">
+                <!-- <input type="select" name="protocolo" value= "{{protocolo}}" maxlength="30" required id="id_protocolo" choices='123'> -->
+                <select name="protocolo" required id="id_protocolo" form="tickets_id">
+                  <option value="volvo">Volvo</option>
+                  <option value="saab">Saab</option>
+                  <option value="opel">Opel</option>
+                  <option value="audi">Audi</option>
+                </select>
                 <input type="hidden" name="id_ligacao" value="{{id_lig}}" maxlength="30" required id="id_ligacao">
                 <input type="hidden" name="data_abertura" value="{{data_abertura}}" maxlength="30" required id="data_abertura">
-                <input type="hidden" name="empresa" value= {{empresa}} maxlength="30" required id="empresa">
+                <input type="hidden" name="empresa" value= '{{empresa}}' maxlength="30" required id="empresa">
+                <input type="hidden" name="status" value= '{{status}}' maxlength="30" required id="id_status">
                 
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <a class="btn btn-secondary float-right" href="{% url 'index' %}">Voltar ao Início</a>

@@ -23,7 +23,7 @@ class AddTicket(forms.ModelForm):
     class Meta:
         model = Tickets
         widgets = {
-          'descri': forms.Textarea(attrs={'rows':15, 'cols':15}),
+          'descri': forms.Textarea(attrs={'rows':5, 'cols':10}),
         }
 
         exclude = ('',)

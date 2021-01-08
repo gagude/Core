@@ -26,14 +26,13 @@ class Tickets(models.Model):
     data_abertura = models.DateTimeField(blank=False)
     cliente = models.CharField(max_length=30, blank=True,null=True)
     responsavel = models.CharField(max_length=30, blank=False)
-    status = models.CharField(max_length=30, blank=True,null=True)
     service = models.CharField("Serviço",default="Telefonico",max_length=30, choices=service_list, blank=True,null=True)
     descri = models.CharField("Descrição",max_length=500, blank=True,null=True)
     protocolo = models.CharField(max_length=30, blank=True,null=True) 
     empresa = models.CharField(default='Core', max_length=100, blank=False)
     id_ligacao = models.CharField(max_length=40,blank=False)
-    slug = models.CharField(max_length=40, blank=True)
-
+    slug = models.CharField(max_length=40, blank=True,null=True)
+    
 class Ligacoes(models.Model):  
     
     tempo_atendimento = models.TimeField("Tempo Atendimento",auto_now=False, auto_now_add=False, blank=True, null=True)
