@@ -140,3 +140,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] #Python Anywhere static fi
 STATIC_URL = '/static/' #Python Anywhere static files
 
 STATIC_ROOT = 'home/gagude/Core/static' #Python Anywhere static files folders
+
+# MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')

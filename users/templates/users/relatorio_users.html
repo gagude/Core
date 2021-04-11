@@ -1,0 +1,113 @@
+{% extends "tasks/layouts/layout.html" %}
+
+{% block content %}
+{% load static %}   
+<section class="content">
+<div class="container-fluid">
+    <div class="card">
+    <div class="card-body">
+        <div class="tab-content p-0">
+            
+            <div id=meuapp>
+                <form >
+                    <input type="text" placeholder="Nome" v-model="search"> 
+                    
+                    <input type="text" placeholder="Cargo" v-model="searchemp"> 
+
+                    <input type="text" placeholder="CPF" v-model="searchcpf"> 
+
+                </form>
+            <table style="width:100%" class="table">
+            <thead class="thead-dark">
+              
+                <tr>
+                    <th>ID </th>  
+                    <th>Nome</th>
+                    <th>Cargo</th>
+                    <th>CPF</th>
+                    <th>Foto</th>
+                </tr>
+                   <tr v-for="user in resultadoBusca">
+                       <td >[[user.id]]</td>
+                       <td >[[user.nome]]</td>
+                       <td >[[user.cargo]]</td>
+                       <td >[[user.cpf]]</td>
+                       <td ><img v-bind:src=user.foto width="30px"></td>
+                   </tr>
+                    <!-- {% for sub_items in my_list %}
+                    <tr>
+                        
+                        
+                        <td><a href="{% url 'index' %}">{{sub_items.protocolo}}</a></td>
+                        <td>{{sub_items.service}}</td>
+                        <td>{{sub_items.empresa}}</td>
+                        <td>{{sub_items.responsavel}}</td> 
+                    </tr>
+                    {% endfor %} -->
+                        
+            </thead>
+            </table>
+        </div>
+        </div><!-- /.card-body -->
+    </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue2-directives/dist/vue-filters.min.js"></script> -->
+
+<script>
+	let meuapp = new Vue({
+    el: '#meuapp',
+    delimiters: ['[[', ']]'],
+    
+	data: { 
+        search : '',
+        searchemp : '',
+        searchcpf: '',
+        filtered : [],
+        usuarios : [
+        {%for itens in my_list%}
+            {   id:'{{itens.id}}',
+                user: '{{itens.user}}',
+                cargo: '{{itens.cargo}}',
+                ramal: '{{itens.data_abertura}}',
+                cpf: '{{itens.cpf}}',
+                banco: '{{itens.banco}}',
+                agencia: '{{itens.id_ligacao}}',
+                conta: '{{itens.conta}}',
+                endereco: '{{itens.endereco}}',
+                nome: '{{itens.user.first_name}}',
+                foto: '{{itens.foto}}',
+            },
+        {%endfor%}
+            
+        ]
+     },
+    methods: {
+        filterPersons(event) {
+            this.filtered = this.usuarios.filter(responsavel=>{
+
+                return responsavel.includes(event.target.value);
+            })
+        }
+    },
+    computed: {
+        resultadoBusca : function(){
+            if(this.search == '' && this.searchemp == '' && this.searchcpf  == '' || this.search == ' '  || this.searchemp == ' ' || this.searchcpf == ' ')
+            {
+                return this.filtered;
+            }else
+            {
+                return this.usuarios.filter(usuario => usuario.nome.toUpperCase().includes(this.search.toUpperCase()) && usuario.cargo.toUpperCase().includes(this.searchemp.toUpperCase()) && usuario.cpf.toUpperCase().includes(this.searchcpf.toUpperCase()))
+            }
+        },
+        
+    },
+    created(){
+        this.filtered = this.usuarios
+    }
+    })
+    
+</script>
+{% endblock content %}

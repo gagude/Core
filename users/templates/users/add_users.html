@@ -1,14 +1,15 @@
 {% extends "tasks/layouts/layout.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
+{% load static %}    
     
-    
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
         <div class="card card-primary" style="margin:1% 10% 0% 10%" id="testapp">
             <div class="card-header">
-              <h3 class="card-title"><b>Ticket: {{ protocolo }}</b></h3>
+              <h3 class="card-title"><b>Usuário</b></h3>
             </div>
+
             <!-- /.card-header -->
             <!-- form start -->
             <form role="form">
@@ -16,7 +17,7 @@
                 <div class="form-row">
                   <div class="col-sm-6">
                       <div class="form-group">
-                        <h4>Data abertura: {{today}}</h4>
+                        <h4>Data Registro: {{today}}</h4>
                       </div>
                   </div>
                   <div class="col-sm-6">
@@ -25,71 +26,126 @@
                       </div>
                   </div>
               </div>
-                 
-                <div class="form-row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                          <label for="type">Setor:</label>
-                          <select name="assunto" id="assunto" v-model="assunto" class="select form-control" v-on:click="clk_as($event)">
-                            <option v-for="option in assunto_options" v-bind:value="option.id">[[option.text]]</option>
-                          </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            {{ form.service|as_crispy_field }} 
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="form-group">
-                          {{ form.prot_sistema|as_crispy_field }} 
-                      </div>
-                  </div>
-                </div>
+              <div class="form-row">
                 
-                <div class="form-row">
-                  <div class="col-sm-4">
-                      <div class="form-group">
-                        <label for="type">Assunto:</label>
-                          <select name="tipo" id="tipo" v-model="tipo" class="select form-control"  v-on:click="clk($event)" >
-                            <option   v-for="option in tipo_options[assunto]" v-bind:value="option.id" >[[option.text]]</option>
-                          </select>
+                
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <div id="div_id_login" class="form-group">
+                      <label for="id_login">Login</label>
+                      <div>
+                        <input type="text" id="id_login" name="login" maxlength="30" class="textdinput textInput form-control">
                       </div>
-                  </div>
-                  <div class="col-sm-4">
-                      <div class="form-group">
-                        {{ form.cliente|as_crispy_field }}
-                      </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="form-group">
-                      {{ form.empresa|as_crispy_field }}
                     </div>
-                </div>
-                  
-                </div>
-                <div class="form-row">
-                  <div class="col-sm-12">
-                      <div class="form-group">
-                        {{ form.descri|as_crispy_field }}
-                      </div>
                   </div>
                   
                 </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <div id="div_id_password" class="form-group">
+                      <label for="id_password">Senha</label>
+                      <div>
+                        <input type="password" id="id_password" name="password" maxlength="30" class="passwordinput passwordInput form-control">
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                      {{ form.cargo|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+
+                <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                          <div id="div_id_name" class="form-group">
+                            <label for="id_name">Nome</label>
+                            <div>
+                              <input type="text" id="id_name" name="name" maxlength="30" class="textinput textInput form-control">
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            {{ form.ramal|as_crispy_field }} 
+                        </div>
+                    </div>
+                </div>
                 
                 
+                <div class="form-row">
+                  
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                        {{ form.cpf|as_crispy_field }}
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                    
+                      
+                      {{ form.foto|as_crispy_field }}
+                    
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <div id="div_id_email" class="form-group">
+                      <label for="id_email">EMail</label>
+                      <div>
+                        <input type="text" id="id_email" name="email" maxlength="40" class="textinput textInput form-control">
+                      </div>
+                      </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                        {{ form.banco|as_crispy_field }}
+                      </div>
+                  </div>
+                  
+                
+                
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                        {{ form.agencia|as_crispy_field }}
+                      </div>
+                  </div>
+                  
+                
+                
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                          {{ form.conta|as_crispy_field }}
+                        </div>
+                    </div>
+                    
+                  </div>
+                  <div class="form-row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                          {{ form.endereco|as_crispy_field }}
+                        </div>
+                    </div>
+                    
+                  </div>
               </div>
               <!-- /.card-body -->
               
               <div class="card-footer">
-                <input type="hidden" name="responsavel" value="{{responsavel}}" maxlength="30" required id="id_responsavel">
+                <!-- <input type="hidden" name="nome" value="{{responsavel}}" maxlength="30" required id="id_responsavel">
                 <input type="hidden" name="data_abertura" value={{date}} required id="id_data_abertura"> 
                 <input type="hidden" name="protocolo" value= {{protocolo}} maxlength="30" required id="id_protocolo">
                 <input type="hidden" name="id_ligacao" value= "123" maxlength="30" required id="id_id_ligacao">
                 <input type="hidden" name="tipo" :value= "key" maxlength="30" required id="id_tipo">
                 <input type="hidden" name="assunto" :value= "key_as" maxlength="30" required id="id_assunto">
-                
-                <button type="submit" class="btn btn-primary">Submit</button>
+                 -->
+                <!-- <input type="hidden" name="email" value= "gagudee@gmail.com" maxlength="30" required id="id_email">
+                --><button type="submit" class="btn btn-primary">Submit</button> 
                 <a class="btn btn-secondary float-right" href="{% url 'index' %}">Voltar ao Início</a>
               </div>
             </form>

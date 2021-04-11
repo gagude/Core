@@ -22,7 +22,7 @@ service_list= [
 class Tickets(models.Model):  
     
     tipo = models.CharField("Tipo",max_length=30, blank=True, null=True)
-    assunto = models.CharField("Assunto",max_length=30, blank=True, choices=lista,null=True)
+    assunto = models.CharField("Assunto",max_length=30, blank=True,null=True)
     data_abertura = models.DateTimeField(blank=False)
     cliente = models.CharField(max_length=30, blank=True,null=True)
     responsavel = models.CharField(max_length=30, blank=False)
@@ -31,6 +31,7 @@ class Tickets(models.Model):
     protocolo = models.CharField(max_length=30, blank=True,null=True) 
     empresa = models.CharField(default='Core', max_length=100, blank=False)
     id_ligacao = models.CharField(max_length=40,blank=False)
+    prot_sistema = models.CharField("Protocolo Sistema",max_length=30, blank=True,null=True) 
     slug = models.CharField(max_length=40, blank=True,null=True)
     
 class Ligacoes(models.Model):  

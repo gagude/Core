@@ -5,6 +5,7 @@ from tickets import views as tk
 
 urlpatterns = [
     path("", views.index, name="index"),
+    path("index2", views.ini_sup, name="index2"),
     path("add_tickets", views.add_tickets, name="add_tickets"),
     path("ini_sup", views.ini_sup, name="ini_sup"),
     path("empresas", views.empresas, name="empresas"),

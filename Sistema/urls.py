@@ -13,7 +13,7 @@ router.register(r'users', us.UserViewSet)
 router.register(r'groups', us.GroupViewSet)
 router.register(r'ticketsAPI', views.TicektsViewSet)
 router.register(r'ligacoesAPI', views.LigacoesViewSet)
-router.register(r'reports', ArticleViewSet)
+#router.register(r'reports', ArticleViewSet)
 
 urlpatterns = [
     path('', include("users.urls")),
@@ -21,7 +21,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('tickets/', include("tickets.urls")),
     path('tasks/', include("tasks.urls")),
-    path('report/', include("reports.urls")),
+    #path('report/', include("reports.urls")),
     path('', include(('tasks.urls', 'tasks'), namespace='tasks')),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),

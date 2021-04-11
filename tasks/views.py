@@ -35,14 +35,12 @@ def index(request):
         
         context['page'] = 'DashBoard-1'
         context['user'] = request.user
+        print(context['user'].profile.cargo.nome)
         print(request.user)
         print(request.user.has_perm('tickets.delete_tickets'))
         for itens in Profile.objects.all():
             if itens.user == request.user:
                 context['usuario'] = itens
-        if request.user.has_perm('tickets.delete_tickets'):
-            context['group'] = context['usuario'].user.first_name
-            context['grupo'] = context['usuario'].get_cargo_display()
         
         context['list_size'] = len(my_list)
         context['receita_total'] = Calculations().total_valor(my_list)
@@ -60,13 +58,19 @@ def index(request):
                  context['senha'] = itens.user.username
         for empresas in Empresas.objects.all():
             emps[empresas.name] = empresas.contract_pack
-        if context['usuario'].get_cargo_display() == "Administrador":
-            print(context['usuario'].get_cargo_display())
-            return render(request, "tasks/index.html",context)
-        if context['usuario'].get_cargo_display() == "Supervisor":
-            return render(request, "tasks/index.html",context)
+        print(context['user'].profile.foto)
+        context['profile_pic'] = context['user'].profile.foto
+        print( context['profile_pic'] )
+        
+        if context['user'].profile.cargo.nome == "Atendente":
+                        print('Entered index in if')
+                        return render(request, "tasks/index2.html",context)
         else:
-            return render(request, "tasks/index.html",context)
+                
+                    print('Entered index in else')
+                    return render(request, "tasks/index.html",context)
+
+        return render(request, "tasks/index.html",context)
 
 def ini_sup(request):
     
