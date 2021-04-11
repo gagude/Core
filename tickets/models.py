@@ -27,7 +27,7 @@ class Tickets(models.Model):
     cliente = models.CharField(max_length=30, blank=True,null=True)
     responsavel = models.CharField(max_length=30, blank=False)
     service = models.CharField("Serviço",default="Telefonico",max_length=30, choices=service_list, blank=True,null=True)
-    descri = models.CharField("Descrição",max_length=500, blank=True,null=True)
+    descri = models.CharField("Descrição",max_length=5000, blank=True,null=True)
     protocolo = models.CharField(max_length=30, blank=True,null=True) 
     empresa = models.CharField(default='Core', max_length=100, blank=False)
     id_ligacao = models.CharField(max_length=40,blank=False)
