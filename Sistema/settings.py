@@ -26,7 +26,7 @@ SECRET_KEY = 'g_9sp6!wzm)y8ftis7p3_=-8!cvl4h+e5h3@ywl04#ms=4t3m*'
 DEBUG = True
 
 #Hosts permitidos rodar a aplicação. "local e online"
-ALLOWED_HOSTS = ['coretecnologia.pythonanywhere.com','192.168.0.100','192.168.0.15','127.0.0.1']
+ALLOWED_HOSTS = ['coretecnologia.pythonanywhere.com','192.168.0.100','192.168.0.15','127.0.0.1','sistema.core-tecnologia.com']
 
 
 # Application definition
