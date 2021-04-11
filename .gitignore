@@ -232,3 +232,4 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 >>>>>>> Local
 .history
+db.sqlite3
