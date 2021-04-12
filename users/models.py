@@ -26,5 +26,6 @@ class Profile(models.Model):
     conta = models.IntegerField("Conta",blank= True)
     endereco = models.CharField("Endereço", max_length=250,blank= True)
     foto = models.ImageField("Foto",upload_to='static/images/', null=True,blank= True)
+    telefone = models.CharField("Telefone", max_length=11,blank= True)
     # Contatos
     # Problemas de Saúde 
