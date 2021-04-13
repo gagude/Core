@@ -107,9 +107,12 @@ def add_users(request):
         context['page'] = 'Cadastro Usuarios'
         context['form'] = form
         context['today'] = datetime.now().strftime("%d/%m/%Y")
+        context['user'] = request.user
+        if context['user'].profile.cargo.nome == "Supervisor":
+            return render(request, "users/add_users3.html",context)
+        else:
+            return render(request, "users/add_users.html",context)
         
-        return render(request, "users/add_users.html",context)
-
 def relatorio_users(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
@@ -122,6 +125,8 @@ def relatorio_users(request):
         context['page'] = 'Relatorio Usuarios'
         context['my_list'] = Profile.objects.all()
         context['lista_objetos'] = len(Profile.objects.all())
-        
-        
-        return render(request, "users/relatorio_users.html",context)
+        context['user'] = request.user
+        if context['user'].profile.cargo.nome == "Supervisor":
+            return render(request, "users/relatorio_users3.html",context)
+        else:
+            return render(request, "users/relatorio_users.html",context)
