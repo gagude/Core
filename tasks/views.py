@@ -58,17 +58,14 @@ def index(request):
                  context['senha'] = itens.user.username
         for empresas in Empresas.objects.all():
             emps[empresas.name] = empresas.contract_pack
-        print(context['user'].profile.foto)
         context['profile_pic'] = context['user'].profile.foto
-        print( context['profile_pic'] )
         
         if context['user'].profile.cargo.nome == "Atendente":
-                        print('Entered index in if')
-                        return render(request, "tasks/index2.html",context)
+            return render(request, "tasks/index2.html",context)
+        elif context['user'].profile.cargo.nome == "Supervisor":
+            return render(request, "tasks/index3.html",context)
         else:
-                
-                    print('Entered index in else')
-                    return render(request, "tasks/index.html",context)
+            return render(request, "tasks/index.html",context)
 
         return render(request, "tasks/index.html",context)
 

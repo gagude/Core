@@ -1,7 +1,6 @@
-{% extends "tasks/layouts/layout3.html" %}
+{% extends "tasks/layouts/layout2.html" %}
 
 {% block content %}
-{% load static %}   
 <section class="content">
 <div class="container-fluid">
     <div class="card">
@@ -10,29 +9,24 @@
             
             <div id=meuapp>
                 <form >
-                    <input type="text" placeholder="Nome" v-model="search"> 
+                    <input type="text" placeholder="Responsavel" v-model="search"> 
                     
-                    <input type="text" placeholder="Cargo" v-model="searchemp"> 
-
-                    <input type="text" placeholder="CPF" v-model="searchcpf"> 
+                    <input type="text" placeholder="Empresa" v-model="searchemp"> 
 
                 </form>
             <table style="width:100%" class="table">
             <thead class="thead-dark">
-              
                 <tr>
                     <th>ID </th>  
-                    <th>Nome</th>
-                    <th>Cargo</th>
-                    <th>CPF</th>
-                    <th>Foto</th>
+                    <th>Empresa</th>
+                    <th>Responsavel</th>
+                    <th>Data Abertura</th>
                 </tr>
-                   <tr v-for="user in resultadoBusca">
-                       <td >[[user.id]]</td>
-                       <td >[[user.nome]]</td>
-                       <td >[[user.cargo]]</td>
-                       <td >[[user.cpf]]</td>
-                       <td ><img v-bind:src=user.foto width="30px"></td>
+                   <tr v-for="ticket in resultadoBusca">
+                       <td >[[ticket.id]]</td>
+                       <td >[[ticket.empresa]]</td>
+                       <td >[[ticket.responsavel]]</td>
+                       <td >[[ticket.dataAbertura]]</td>
                    </tr>
                     <!-- {% for sub_items in my_list %}
                     <tr>
@@ -64,21 +58,18 @@
 	data: { 
         search : '',
         searchemp : '',
-        searchcpf: '',
         filtered : [],
-        usuarios : [
+        tickets : [
         {%for itens in my_list%}
             {   id:'{{itens.id}}',
-                user: '{{itens.user}}',
-                cargo: '{{itens.cargo}}',
-                ramal: '{{itens.data_abertura}}',
-                cpf: '{{itens.cpf}}',
-                banco: '{{itens.banco}}',
-                agencia: '{{itens.id_ligacao}}',
-                conta: '{{itens.conta}}',
-                endereco: '{{itens.endereco}}',
-                nome: '{{itens.user.first_name}}',
-                foto: '{{itens.foto}}',
+                empresa: '{{itens.empresa}}',
+                responsavel: '{{itens.responsavel}}',
+                dataAbertura: '{{itens.data_abertura}}',
+                cliente: '{{itens.cliente}}',
+                assunto: '{{itens.assunto}}',
+                idLigacao: '{{itens.id_ligacao}}',
+                service: '{{itens.service}}',
+                tipo: '{{itens.tipo}}',
             },
         {%endfor%}
             
@@ -86,7 +77,7 @@
      },
     methods: {
         filterPersons(event) {
-            this.filtered = this.usuarios.filter(responsavel=>{
+            this.filtered = this.tickets.filter(responsavel=>{
 
                 return responsavel.includes(event.target.value);
             })
@@ -94,18 +85,18 @@
     },
     computed: {
         resultadoBusca : function(){
-            if(this.search == '' && this.searchemp == '' && this.searchcpf  == '' || this.search == ' '  || this.searchemp == ' ' || this.searchcpf == ' ')
+            if(this.search == '' && this.searchemp == '' || this.search == ' '  || this.searchemp == ' ')
             {
                 return this.filtered;
             }else
             {
-                return this.usuarios.filter(usuario => usuario.nome.toUpperCase().includes(this.search.toUpperCase()) && usuario.cargo.toUpperCase().includes(this.searchemp.toUpperCase()) && usuario.cpf.toUpperCase().includes(this.searchcpf.toUpperCase()))
+                return this.tickets.filter(ticket => ticket.responsavel.toUpperCase().includes(this.search.toUpperCase()) && ticket.empresa.toUpperCase().includes(this.searchemp.toUpperCase()))
             }
         },
         
     },
     created(){
-        this.filtered = this.usuarios
+        this.filtered = this.tickets
     }
     })
     

@@ -85,6 +85,10 @@ def add_tickets(request):
         if context['user'].profile.cargo.nome == "Atendente":
                         print('Entered index in if')
                         return render(request, "tickets/add_ticket2.html",context)
+        elif context['user'].profile.cargo.nome == "Supervisor":
+                
+                    print('Entered index in else')
+                    return render(request, "tickets/add_ticket3.html",context)
         else:
                 
                     print('Entered index in else')
@@ -163,7 +167,13 @@ def relatorio_tickets(request):
         context['lista_objetos'] = len(Tickets.objects.all())
         
         
-        return render(request, "tickets/relatorio_tickets.html",context)
+        context['user'] = request.user
+        if context['user'].profile.cargo.nome == "Atendente":
+            return render(request, "tickets/relatorio_tickets2.html",context)
+        elif context['user'].profile.cargo.nome == "Supervisor":
+            return render(request, "tickets/relatorio_tickets3.html",context)
+        else:
+            return render(request, "tickets/relatorio_tickets.html",context)
 
 def relatorio_tickets_view(request,arg1):
     if not request.user.is_authenticated:
@@ -185,4 +195,5 @@ def relatorio_tickets_view(request,arg1):
             counter += 1
             lista[counter-1] = "{% url 'relatorio_tickets_view' arg1="+counter+" %}"
         context['url_list'] = "{% url 'relatorio_tickets_view' arg1=2 %}"
+        
         return render(request, "tickets/relatorio_tickets copy.html",context)
