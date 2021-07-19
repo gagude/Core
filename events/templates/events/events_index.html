@@ -1,0 +1,125 @@
+{% extends "tasks/layouts/layout.html" %}
+{% load static %}
+{% block content %}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+        <div class="card-body">
+            <div class="tab-content p-0">
+                
+                <div id=meuapp>
+                    <form >
+                        <input type="text" placeholder="ID" v-model="search"> 
+                        
+                        <input type="text" placeholder="EMPRESA" v-model="searchemp"> 
+    
+                        <input type="text" placeholder="RESPONSAVEL" v-model="searchcpf"> 
+    
+                    </form>
+                <table style="width:100%" class="table">
+                <thead class="thead-dark">
+                  
+                    <tr>
+                        <th>ID </th>  
+                        <th>Empresa</th>
+                        <th>Responsavel</th>
+                        <th>Data Ocorrido</th>
+                        <th>Data Relato</th>
+                    </tr>
+                       <tr v-for="user in resultadoBusca">
+                           <td >[[user.id]]</td>
+                           <td > <a v-bind:href="user.link"> [[user.empresa]]</a></td>
+                           <td >[[user.responsavel]]</td>
+                           <td >[[user.data_ocorrido]]</td>
+                           <td >[[user.data_relato]]</td>
+                       </tr>
+                        <!-- {% for sub_items in my_list %}
+                        <tr>
+                            
+                            
+                            <td><a href="{% url 'index' %}">{{sub_items.protocolo}}</a></td>
+                            <td>{{sub_items.service}}</td>
+                            <td>{{sub_items.empresa}}</td>
+                            <td>{{sub_items.responsavel}}</td> 
+                        </tr>
+                        {% endfor %} -->
+                            
+                </thead>
+                </table>
+            </div>
+            </div><!-- /.card-body -->
+        </div>
+    </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue2-directives/dist/vue-filters.min.js"></script> -->
+    
+    <script>
+        let meuapp = new Vue({
+        el: '#meuapp',
+        delimiters: ['[[', ']]'],
+        
+        data: { 
+            search : '',
+            searchemp : '',
+            searchcpf: '',
+            filtered : [],
+            usuarios : [
+            {% if profile_cargo == "Cliente" %}
+                {%for itens in list_client%}
+                    {   id:'{{itens.id}}',
+                        empresa: '{{itens.empresa}}',
+                        responsavel: '{{itens.responsavel}}',
+                        data_ocorrido: '{{itens.data_ocorrido}}',
+                        data_relato: '{{itens.data_relato}}',
+                        link : 'evento{{itens.id}}'
+                    },
+                {%endfor%}
+            
+            {% else %} 
+                {%for itens in my_list%}
+                    {   id:'{{itens.id}}',
+                        empresa: '{{itens.empresa}}',
+                        responsavel: '{{itens.responsavel}}',
+                        data_ocorrido: '{{itens.data_ocorrido}}',
+                        data_relato: '{{itens.data_relato}}',
+                        link : 'evento{{itens.id}}'
+                    },
+                {%endfor%}
+
+            {% endif %}     
+
+            ]
+         },
+        methods: {
+            filterPersons(event) {
+                this.filtered = this.usuarios.filter(responsavel=>{
+    
+                    return responsavel.includes(event.target.value);
+                })
+            }
+        },
+        computed: {
+            resultadoBusca : function(){
+                if(this.search == '' && this.searchemp == '' && this.searchcpf  == '' || this.search == ' '  || this.searchemp == ' ' || this.searchcpf == ' ')
+                {
+                    return this.filtered;
+                }else
+                {
+                    return this.usuarios.filter(usuario => usuario.id.toUpperCase().includes(this.search.toUpperCase()) && usuario.empresa.toUpperCase().includes(this.searchemp.toUpperCase()) && usuario.responsavel.toUpperCase().includes(this.searchcpf.toUpperCase()))
+                }
+            },
+            
+        },
+        created(){
+            this.filtered = this.usuarios
+        }
+        })
+        
+    </script>
+
+
+
+{% endblock content %}

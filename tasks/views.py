@@ -1,6 +1,8 @@
+from events.models import Event
+from events.views import evento
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import EmpresasForm
+from .forms import AddEmpresas
 from .models import Empresas
 from tickets.forms import AddTicket
 from .calculations import Calculations
@@ -9,7 +11,7 @@ from django.urls import reverse
 from users.models import Profile
 from tickets.models import Tickets
 from tickets.models import Ligacoes
-
+from datetime import date, datetime
 # Create your views here.
 
 
@@ -35,6 +37,13 @@ def index(request):
         
         context['page'] = 'DashBoard-1'
         context['user'] = request.user
+        context['profile_cargo'] = request.user.profile.cargo.nome
+        
+        context['tickets_empresa'] = len(Tickets.objects.filter(empresa=request.user.profile.empresa))
+        
+        context['eventos_total'] = len(Event.objects.filter(empresa=request.user.profile.empresa))
+        context['eventos_abertos'] = len(Event.objects.filter(empresa=request.user.profile.empresa, status_core="CONCLUIDO"))
+
         print(context['user'].profile.cargo.nome)
         print(request.user)
         print(request.user.has_perm('tickets.delete_tickets'))
@@ -107,14 +116,40 @@ def add_empresas(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse("login"))
     else:
+        if request.method == 'POST':
+            
+          
 
-        form = AddTicket(request.POST or None)
-        if form.is_valid():
-            form.save()
-        context['page'] = 'AdicionarEmpresas'
-        context['list_size'] = len(my_list)
+            data_form = {
+                'csrfmiddlewaretoken': request.POST['csrfmiddlewaretoken'], 
+                'name': request.POST['name'], 
+                'contract_pack': request.POST['contract_pack'], 
+                'contract_value': request.POST['contract_value'], 
+                'cnpj': request.POST['cnpj'], 
+                'owner': request.POST['owner'], 
+                'logo': request.FILES['logo'], 
+                'start_data': request.POST['start_data'], 
+                'end_contract': request.POST['end_contract'], 
+                'last_renew': request.POST['last_renew'], 
+                'service_level': request.POST['service_level'], 
+                'excedent': request.POST['excedent'],
+                'it_respon' : request.POST['it_respon']
+                }
+            print('CHEGOU AQUI')
+            form = AddEmpresas(data_form, request.FILES or None)
+            if form.is_valid():
+                form.save()
+                form.full_clean()
+
+        form = AddEmpresas()
+        context['page'] = 'Cadastro Empresas'
         context['form'] = form
-        return render(request, "tasks/add_empresas.html",context)
+        context['today'] = datetime.now().strftime("%d/%m/%Y")
+        context['user'] = request.user
+        if context['user'].profile.cargo.nome == "Supervisor":
+            return render(request, "tasks/add_users3.html",context)
+        else:
+            return render(request, "tasks/add_empresas.html",context)
 
 def empresas(request):
     if not request.user.is_authenticated:

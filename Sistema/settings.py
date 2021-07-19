@@ -42,9 +42,7 @@ INSTALLED_APPS = [
     'tasks',
     'users',
     'tickets',
-    'vueshow',
-    'client',
-    'reports',
+    'events',
     'rest_framework', #Cria API para aplicação
     'rest_framework.authtoken', #Adiciona autenticação por Header Token
 ]
@@ -60,7 +58,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Sistema.urls'
-
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

@@ -5,22 +5,33 @@
       
         <!-- Content Header (Page header) -->
         
-    
+    {% if profile_cargo == "Cliente" %}
+      <div><h1>CLIENTE</h1></div>
+      Eventos Abertos{{eventos_total}}
+      <br>
+      
+      Eventos Em Concluidos{{eventos_abertos}}
+<br>
+      Tickets {{tickets_empresa}}
+    {%else%}
         <!-- Main content -->
         <section class="content">
           <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-              <div class="col-lg-3 col-6">
+              <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
                  
                   <div class="inner" >
                     
-                    <h4>Pontuação </h4>
-                    
-                    <h3>{{pontuacao}}</h3> 
-                  
+                    <h4>Empresas</h4>
+                    <br>
+                    <h6>Quantidade: {{list_size}}</h6> 
+                    <h6>Receita: {{receita_total}}</h6>   
+                    <h6>Chamados: {{total_chamados}}</h6>  
+                    <h6>Chamados: {{total_chamados}}</h6>   
+                    <h6>Chamados: {{total_chamados}}</h6>  
 
                   </div>
                   
@@ -31,13 +42,17 @@
                 </div>
               </div>
               <!-- ./col -->
-              <div class="col-lg-3 col-6">
+              <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-success">
                   <div class="inner">
-                    <h4>Receita Total Empresas {{list_size}}</h4>
-                    
-                    <h3>{{receita_total}}</h3> 
+                    <h4>Usuarios</h4>
+                    <br>
+                    <h6>Quantidade: {{list_size}}</h6> 
+                    <h6>Agentes: {{receita_total}}</h6>   
+                    <h6>Supervisores: {{total_chamados}}</h6>  
+                    <h6>Administradores: {{total_chamados}}</h6>  
+                    <h6>Clientes: {{total_chamados}}</h6>  
                   </div>
                   <div class="icon">
                     <i class="ion ion-stats-bars"></i>
@@ -46,13 +61,17 @@
                 </div>
               </div>
               <!-- ./col -->
-              <div class="col-lg-3 col-6">
+              <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-warning">
                   <div class="inner">
-                    
-                    <h4>Total Chamados</h4>
-                    <h3>{{total_tickets}}</h3>
+                    <h4>Chamados</h4>
+                    <br>
+                    <h6>Quantidade: {{list_size}}</h6> 
+                    <h6>Agentes: {{receita_total}}</h6>   
+                    <h6>Supervisores: {{total_chamados}}</h6>  
+                    <h6>Administradores: {{total_chamados}}</h6>  
+                    <h6>Clientes: {{total_chamados}}</h6>  
     
                     
                   </div>
@@ -63,21 +82,7 @@
                 </div>
               </div>
               <!-- ./col -->
-              <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box {%if total_chamados < 10000000 %}bg-danger{% else %}bg-warning{%endif%}">
-                  <div class="inner">
-                    <h4>Tickets Abertos</h4>
-                    <h3>{{tickets_user}}</h3>
-    
-                    
-                  </div>
-                  <div class="icon">
-                    <i class="ion ion-pie-graph"></i>
-                  </div>
-                  <a href="{% url 'tk_rel' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-              </div>
+             
               <!-- ./col -->
             </div>
             <!-- /.row -->
@@ -112,6 +117,7 @@
                           <th>PACOTE</th>
                           <th>VALOR</th>
                           <th>EXCEDENTE</th>
+                          
                         </tr>
                         {% for sub_items in my_list %}
                         
@@ -121,6 +127,7 @@
                           <td>{{sub_items.contract_pack}}</td>
                           <td>R$ {{sub_items.contract_value}}</td>
                           <td>R$ {{sub_items.excedent  }}</td>
+                          
                         </tr>
                         {% endfor %}
                       </table>
@@ -233,6 +240,6 @@
         
      
         
-       
+{%endif%}
 {% endblock content %}
 

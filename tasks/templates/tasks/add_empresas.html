@@ -1,10 +1,162 @@
 {% extends "tasks/layouts/layout.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-    <h1>Cadastro Empresa</h1>
-    <form  method='POST'>{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="save">
-    </form>
-    <a href="{% url 'index' %}">Voltar ao Início</a>
+{% load static %}    
+    
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+        <div class="card card-primary" style="margin:1% 10% 0% 10%" id="testapp">
+            <div class="card-header">
+              <div class="form-row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <h3 class="card-title"><b>Empresa</b></h3>
+                  </div>
+              </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                      <h3 class="card-title"><b>Data Registro:</b> {{today}}</h3>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                      <h3 class="card-title"><b>Responsavel:</b> {{request.user}} </h3>
+                    </div>
+                </div>
+              </div>
+              
+            </div>
+
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form role="form">
+              <div class="card-body">
+                <div class="form-row">
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                        
+                      </div>
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="form-group">
+                        
+                      </div>
+                  </div>
+              </div>
+              <div class="form-row">
+                
+                
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    {{ form.name|as_crispy_field }}
+                  </div>
+                  
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    {{ form.cnpj|as_crispy_field }}
+                  </div>
+                  
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                      {{ form.logo|as_crispy_field }}
+                    </div>
+                </div>
+            </div>
+
+              <div class="form-row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                          {{ form.start_data|as_crispy_field }}
+                        </div>
+                      </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            {{ form.end_contract|as_crispy_field }} 
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                          {{ form.last_renew|as_crispy_field }} 
+                      </div>
+                  </div>
+              </div>
+                 
+                <div class="form-row">
+                  
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                        {{ form.cidade|as_crispy_field }}
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      {{ form.estado|as_crispy_field }}
+                    </div>
+                    
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      {{ form.endereco|as_crispy_field }}
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                        {{ form.contract_pack|as_crispy_field }}
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                        {{ form.contract_value|as_crispy_field }}
+                    </div>
+                  </div>
+                  
+                  <div class="col-sm-2">
+                    <div class="form-group">
+                          {{ form.excedent|as_crispy_field }}
+                    </div>
+                  </div>
+
+                  <div class="col-sm-2">
+                    <div class="form-group">
+                        {{ form.service_level|as_crispy_field }}
+                    </div>
+                  </div>
+                </div>
+
+                  <div class="form-row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                          {{ form.owner|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        {{ form.it_respon|as_crispy_field }}
+                      </div>
+                  </div>
+                  </div>
+                  
+              </div>
+              <!-- /.card-body -->
+              
+              <div class="card-footer">
+                <!-- <input type="hidden" name="nome" value="{{responsavel}}" maxlength="30" required id="id_responsavel">
+                <input type="hidden" name="data_abertura" value={{date}} required id="id_data_abertura"> 
+                <input type="hidden" name="protocolo" value= {{protocolo}} maxlength="30" required id="id_protocolo">
+                <input type="hidden" name="id_ligacao" value= "123" maxlength="30" required id="id_id_ligacao">
+                <input type="hidden" name="tipo" :value= "key" maxlength="30" required id="id_tipo">
+                <input type="hidden" name="assunto" :value= "key_as" maxlength="30" required id="id_assunto">
+                 -->
+                <!-- <input type="hidden" name="email" value= "gagudee@gmail.com" maxlength="30" required id="id_email">
+                --><button type="submit" class="btn btn-primary">Submit</button> 
+                <a class="btn btn-secondary float-right" href="{% url 'index' %}">Voltar ao Início</a>
+              </div>
+            </form>
+          </div>   
+          
 {% endblock %}

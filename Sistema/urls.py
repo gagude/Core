@@ -3,10 +3,8 @@ from django.urls import include, path
 from rest_framework import routers
 from tickets import views
 from users import views as us
-from vueshow import views as myapp_views
-from .routers import router as otherRouter
+from events import views as evn
 from django.views.generic import TemplateView
-from reports.views import ArticleViewSet
 
 router = routers.DefaultRouter()
 router.register(r'users', us.UserViewSet)
@@ -21,15 +19,12 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('tickets/', include("tickets.urls")),
     path('tasks/', include("tasks.urls")),
+    path('eventos/', include("events.urls")),
     #path('report/', include("reports.urls")),
     path('', include(('tasks.urls', 'tasks'), namespace='tasks')),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('myteste/', myapp_views.frontend),
-    path('myteste/article/', myapp_views.frontend),
-    path('myteste/author/', myapp_views.frontend),
-    path('myteste/article/<slug:slug>/', myapp_views.frontend),
-    path('myteste/author/<slug:slug>/', myapp_views.frontend),
+
 ]
 
 

@@ -1,0 +1,93 @@
+{% extends "tasks/layouts/layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load filters %}
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+      <div class="card card-primary" style="margin:1% 10% 0% 10%" id="testapp">
+          <div class="card-header">
+            <div class="form-row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <h3 class="card-title"><b>STATUS</b></h3>
+                </div>
+            </div>
+              <div class="col-sm-3">
+                  <div class="form-group">
+                    <h3 class="card-title"><b>Data Registro:</b> {{today}}</h3>
+                  </div>
+              </div>
+              <div class="col-sm-3">
+                  <div class="form-group">
+                    <h3 class="card-title"><b>Responsavel:</b> {{request.user}} </h3>
+                  </div>
+              </div>
+            </div>
+            
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form role="form">
+            <div class="card-body">
+              <div class="form-row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    
+                  </div>
+                </div>
+          
+              </div>
+              <div class="form-row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label> Status: </label>
+                    <select name="status_core" id="status_core" class="select form-control">
+                      <option v-for="option in assunto_options">[[option]]</option>
+                    </select>
+                  </div>
+          
+                </div>
+              </div>
+          
+              
+                
+            </div>
+            <!-- /.card-body -->
+            
+            <div class="card-footer">
+              <!-- 
+              <input type="hidden" name="data_abertura" value={{date}} required id="id_data_abertura"> 
+              <input type="hidden" name="protocolo" value= {{protocolo}} maxlength="30" required id="id_protocolo">
+              <input type="hidden" name="id_ligacao" value= "123" maxlength="30" required id="id_id_ligacao">
+              <input type="hidden" name="tipo" :value= "key" maxlength="30" required id="id_tipo">
+              <input type="hidden" name="assunto" :value= "key_as" maxlength="30" required id="id_assunto">
+               -->
+              <!-- <input type="hidden" name="email" value= "gagudee@gmail.com" maxlength="30" required id="id_email">
+              --><button type="submit" class="btn btn-primary">Submit</button> 
+              <a class="btn btn-secondary float-right" href="{% url 'index' %}">Voltar ao Início</a>
+            </div>
+          </form>
+        </div>   
+        <script src="//unpkg.com/vue"></script>
+        <script src="//unpkg.com/laue"></script>
+        <script>
+          new Vue({
+              el: '#testapp',
+              delimiters: ['[[', ']]'], 
+              data: {
+                  assunto_options : [ 
+                    "CONCLUIDO",
+                    "EM ANALISE",
+                    "AGUARDANDO EVIDENCIAS",
+                    "AGUARDANDO VALIDAÇÃO"
+                    ],
+              },
+              
+              
+
+            })
+            
+        </script>
+{% endblock content %}

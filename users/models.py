@@ -1,3 +1,4 @@
+from tasks.models import Empresas
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.hashers import check_password
@@ -8,6 +9,7 @@ CARGO = (
             ('1','Supervisor'),
             ('2','Administrador'),
             ('3','Atendente'),
+            ('4','Cliente'),
         )
 class Cargo(models.Model):
     nome = models.CharField(max_length=30)
@@ -27,5 +29,8 @@ class Profile(models.Model):
     endereco = models.CharField("Endereço", max_length=250,blank= True)
     foto = models.ImageField("Foto",upload_to='static/images/', null=True,blank= True)
     telefone = models.CharField("Telefone", max_length=11,blank= True)
+    empresa = models.ForeignKey(Empresas,  related_name='images', on_delete=models.SET_NULL, null=True)
+    def __str__(self):
+        return '%s' % self.user
     # Contatos
     # Problemas de Saúde 

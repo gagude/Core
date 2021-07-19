@@ -1,0 +1,218 @@
+{% extends "tasks/layouts/layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load filters %}
+{% block content %}
+<div class="container-fluid">
+    <div class="card card-primary">
+      <div class="card-header">
+        Evento {{evento.id}}
+      </div>
+    <div class="card-body">
+        <div class="tab-content p-0">
+            
+            <div>
+                
+                
+                        <div class="row">
+                          <div class="col-sm-4" style="border: 1px; border-right-style: solid; ">
+                            <label>
+                              Empresa:
+                            </label>
+                            {{evento.empresa}}
+                            <br>
+                            <label>
+                              Responsável:
+                            </label>
+                            {{evento.responsavel}}
+                            <br>
+                            <label>
+                              Data Ocorrido:
+                            </label>
+                            {{evento.data_ocorrido}}
+                            <br>
+                            <label>
+                              Horario Ocorrido:
+                            </label>
+                            {{evento.horario}}
+                            <br>
+                            <label>
+                              Data Relato:
+                            </label>
+                            {{evento.data_relato}}
+                            <br>
+                            <label>
+                              CPF CLiente:
+                            </label>
+                            {{evento.cpf}}
+                            <br>
+                            <label>
+                              Telefone Cliente:
+                            </label>
+                            {{evento.telefone}}
+                            <br>
+                            <label>
+                              Nome Cliente:
+                            </label>
+                            {{evento.nome_cliente}}
+                            <br>
+                            <br>
+                            <br>
+                            <label>
+                              Status Cliente:
+                            </label>
+                            {{evento.status_cliente}}
+                            <br> 
+                            <label>
+                              Status Core:
+                            </label>
+                            {{evento.status_core}}
+                            <br>
+                            <a href="/eventos/evento_status{{evento.id}}">
+                              <button class="btn btn-primary">
+                             
+                            Mudar Status:
+                            </button>
+                          </a> 
+                            
+                            <br>
+                          </div>
+                          <div class="col-sm-8 " style="text-align: left;">
+                            <div style="border: 1px; border-bottom-style: dotted;">
+                            <label>
+                              Relato:
+                            </label>
+                            {{evento.relato}}
+                            <br>
+                            <label>
+                              Detalhes Adicionais:
+                            </label>
+                            {{evento.detalhes}}
+                            <br>
+                            <br>
+                            <p>
+                              {%for foto in fotos%}
+                              <a href="/{{foto.image}}" target="_blank"> arquivo {{foto.id}} </a>
+                                <br/>
+                              {%endfor%}
+                             
+                            </p>
+                          </div>
+                          {%for itens in rss%}
+                          <div style="border: 1px; border-bottom-style: dotted;">
+                          <label>
+                            Responsavel:
+                          </label>
+                          {{itens.responsavel}}
+                          <br>
+                          <label>
+                            Data:
+                          </label>
+                          {{itens.data}}
+                          <br>
+                          <label>
+                            Resposta:
+                          </label>
+                          {{itens.resposta}}
+                          <br>
+                          <br>
+                            <p>
+                              {%for iten in itens|lower%}
+                              <a href="/{{iten.image}}" target="_blank"> arquivo {{iten.id}} </a>
+                                <br/>
+                              {%endfor%}
+                             
+                            </p>
+                        </div>
+                          {%endfor%}
+                        </div>
+                        </div>
+                          
+                        
+                            <!-- {% for sub_items in my_list %}
+                            <tr>
+                                
+                                
+                                <td><a href="{% url 'index' %}">{{sub_items.protocolo}}</a></td>
+                                <td>{{sub_items.service}}</td>
+                                <td>{{sub_items.empresa}}</td>
+                                <td>{{sub_items.responsavel}}</td> 
+                            </tr>
+                            {% endfor %} -->
+                    
+                
+               
+            </div>
+        </div><!-- /.card-body -->
+    </div>
+</div>
+</div>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+      <div class="card card-primary" style="margin:1% 10% 0% 10%" id="testapp">
+          <div class="card-header">
+            <div class="form-row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <h3 class="card-title"><b>Resposta</b></h3>
+                </div>
+            </div>
+              <div class="col-sm-3">
+                  <div class="form-group">
+                    <h3 class="card-title"><b>Data Registro:</b> {{today}}</h3>
+                  </div>
+              </div>
+              <div class="col-sm-3">
+                  <div class="form-group">
+                    <h3 class="card-title"><b>Responsavel:</b> {{request.user}} </h3>
+                  </div>
+              </div>
+            </div>
+            
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form role="form">
+            <div class="card-body">
+              <div class="form-row">
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    {{ form.resposta|as_crispy_field }}
+                  </div>
+                </div>
+          
+              </div>
+              <div class="form-row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label> Imagens: </label>
+                    <input required name="images" type="file" multiple class="form-control-file">
+                  </div>
+          
+                </div>
+              </div>
+            <input type="hidden" name="responsavel" value="{{request.user}}" maxlength="30" required id="id_responsavel">
+
+            <input type="hidden" name="data" value={{date}} required id="id_data"> 
+              
+              
+                
+            </div>
+            <!-- /.card-body -->
+            
+            <div class="card-footer">
+              <!-- 
+              <input type="hidden" name="data_abertura" value={{date}} required id="id_data_abertura"> 
+              <input type="hidden" name="protocolo" value= {{protocolo}} maxlength="30" required id="id_protocolo">
+              <input type="hidden" name="id_ligacao" value= "123" maxlength="30" required id="id_id_ligacao">
+              <input type="hidden" name="tipo" :value= "key" maxlength="30" required id="id_tipo">
+              <input type="hidden" name="assunto" :value= "key_as" maxlength="30" required id="id_assunto">
+               -->
+              <!-- <input type="hidden" name="email" value= "gagudee@gmail.com" maxlength="30" required id="id_email">
+              --><button type="submit" class="btn btn-primary">Submit</button> 
+              <a class="btn btn-secondary float-right" href="{% url 'index' %}">Voltar ao Início</a>
+            </div>
+          </form>
+        </div>   
+
+{% endblock content %}
